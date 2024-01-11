@@ -21,11 +21,14 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
-            return redirect()->intended('/');
+        if (Auth::guard('pegawai')->attempt($credentials)) {
+            return redirect('dashboard/cuti');
         }
+
+        if (Auth::guard('user')->attempt($credentials)) {
+            return redirect('/');
+        }
+
         return back()->with('loginError', 'Login Failed!');
     }
 

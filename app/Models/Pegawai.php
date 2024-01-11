@@ -12,6 +12,8 @@ class Pegawai extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $table = 'pegawais';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -22,6 +24,7 @@ class Pegawai extends Authenticatable
         'NIP',
         'nama',
         'jabatan',
+        'tahun_awal_kerja',
         'masa_kerja',
         'email',
         'password'
@@ -34,6 +37,7 @@ class Pegawai extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'remember_token'
     ];
 
     /**
@@ -42,6 +46,7 @@ class Pegawai extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
+        'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
 }

@@ -17,8 +17,11 @@ return new class extends Migration
             $table->string('nama');
             $table->string('jabatan');
             $table->string('masa_kerja');
-            $table->string('email');
+
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
         });
     }
