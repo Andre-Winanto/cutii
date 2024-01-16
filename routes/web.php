@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\PengajuanCutiController;
+use App\Models\PengajuanCuti;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,42 +20,32 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('auth:user');
 
 Route::get('/login', [LoginController::class, 'login'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
-// Route::post('/logout', [LoginController::class, 'logout']);
 
-Route::resource('dashboard/datapegawai', PegawaiController::class);
+Route::resource('dashboard/datapegawai', PegawaiController::class)->middleware('auth:user');
+Route::resource('dashboard/pengajuancuti', PengajuanCutiController::class);
+
 Route::get('dashboard/cuti', function () {
     return view('dashboardCuti.index');
 });
 
 Route::get('/test', function () {
-    // return Auth::guard('pegawai')->user()->nama;
     return Auth::guard('user')->user()->name;
 });
 
 Route::get('/test2', function () {
     return Auth::guard('pegawai')->user()->nama;
-    // return Auth::guard('user')->user()->name;
 });
 
 Route::get('/test3', function () {
-    return Auth::guard()->check();
+    dd(Auth::guard('pegawai')->check());
 });
 
 Route::get('/logoutt', function () {
-    Auth::logout();
-    return redirect('/login');
-});
-
-Route::get('/logoutp', function () {
     Auth::guard('pegawai')->logout();
-    return redirect('/login');
-});
-
-Route::get('/logouta', function () {
     Auth::guard('user')->logout();
     return redirect('/login');
 });

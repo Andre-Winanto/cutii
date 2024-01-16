@@ -27,7 +27,8 @@ class Pegawai extends Authenticatable
         'tahun_awal_kerja',
         'masa_kerja',
         'email',
-        'password'
+        'password',
+        'nama_kelompok'
     ];
 
     /**

@@ -24,7 +24,7 @@
                         @endif
 
                         <div class="card-body">
-                            <a class="btn btn-primary" href="{{ url('/datapegawai/create') }}">Tambah</a>
+                            <a class="btn btn-primary" href="{{ url('dashboard/datapegawai/create') }}">Tambah</a>
                         </div>
 
                         <div class="card-body" style="padding-top: 5px;padding-bottom: 5px">
@@ -38,6 +38,7 @@
                                     <th scope="col">Nama</th>
                                     <th scope="col">Jabatan</th>
                                     <th scope="col">Masa Kerja (thn)</th>
+                                    <th scope="col">Email</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
@@ -49,15 +50,17 @@
                                         <td>{{ $pegawai->nama }}</td>
                                         <td>{{ $pegawai->jabatan }}</td>
                                         <td>{{ $pegawai->masa_kerja }}</td>
+                                        <td>{{ $pegawai->email }}</td>
                                         <td>
                                             <div class="d-flex gap-4">
-                                                <a href="{{ url('datapegawai/' . $pegawai->id . '/edit') }}"
+                                                <a href="{{ url('dashboard/datapegawai/' . $pegawai->id . '/edit') }}"
                                                     class="btn btn-warning"
                                                     style="padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px;
                                                     margin-right: 5px"><i
                                                         class="far fa-edit"></i></a>
 
-                                                <form action="{{ url('datapegawai/' . $pegawai->id) }}" method="POST">
+                                                <form action="{{ url('dashboard/datapegawai/' . $pegawai->id) }}"
+                                                    method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn btn-danger"

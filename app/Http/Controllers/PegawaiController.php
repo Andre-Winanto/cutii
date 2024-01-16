@@ -34,12 +34,20 @@ class PegawaiController extends Controller
             'NIP' => 'required|max:18|min:18|unique:pegawais',
             'nama' => 'required|max:255',
             'jabatan' => 'required',
-            'masa_kerja' => 'required|max:3'
+            'masa_kerja' => 'required|max:3',
+            'email' => 'required|max:20|unique:pegawais',
+            'password' => 'required|max:9'
         ]);
 
         Pegawai::create($validated);
 
-        return redirect('/datapegawai')->with('success', 'Data pegawai berhasil ditambah!');
+        \App\Models\JatahCuti::create([
+            'NIP' => $validated['NIP'],
+            'tahun' => '2023',
+            'jatah' => 12
+        ]);
+
+        return redirect('dashboard/datapegawai')->with('success', 'Data pegawai berhasil ditambah!');
     }
 
     /**
@@ -69,11 +77,16 @@ class PegawaiController extends Controller
         $rules = [
             'nama' => 'required|max:255',
             'jabatan' => 'required',
-            'masa_kerja' => 'required|max:3'
+            'masa_kerja' => 'required|max:3',
+            'password' => 'required|max:9'
         ];
 
         if ($request->NIP != $datapegawai->NIP) {
             $rules['NIP'] = 'required|max:18|min:18|unique:pegawais';
+        }
+
+        if ($request->email != $datapegawai->email) {
+            $rules['email'] = 'required|max:20|unique:pegawais';
         }
 
         $validated = $request->validate($rules);
@@ -81,7 +94,7 @@ class PegawaiController extends Controller
         Pegawai::where('id', $datapegawai->id)
             ->update($validated);
 
-        return redirect('/datapegawai')->with('success', 'Data pegawai berhasil dirubah!');
+        return redirect('dashboard/datapegawai')->with('success', 'Data pegawai berhasil dirubah!');
     }
 
     /**

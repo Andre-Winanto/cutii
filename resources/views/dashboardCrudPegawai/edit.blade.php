@@ -71,10 +71,42 @@
                                         @enderror
                                     </div>
                                 </div>
+
+
+                                <div class="form-group row">
+                                    <label for="email"
+                                        class="col-sm-3 text-end control-label col-form-label">Email</label>
+                                    <div class="col-sm-9">
+                                        <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                            name="email" value="{{ old('email', $pegawai->email) }}" id="email"
+                                            placeholder="Masukan Masa Kerja" step="any" />
+                                        @error('email')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="password"
+                                        class="col-sm-3 text-end control-label col-form-label">Password</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control @error('password') is-invalid @enderror"
+                                            name="password" value="{{ old('password', $pegawai->password) }}"
+                                            id="password" placeholder="Masukan Masa Kerja" step="any" />
+                                        @error('password')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
                                 <div class="border-top">
                                     <div class="card-body">
                                         <a class="btn btn-primary" style="margin-right: 10px"
-                                            href="{{ url('/datapegawai') }}">Kembali</a>
+                                            href="{{ url('dashboard/datapegawai') }}">Kembali</a>
                                         <button type="submit" class="btn btn-primary">
                                             Simpan
                                         </button>
