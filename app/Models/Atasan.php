@@ -7,11 +7,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Pegawai extends Authenticatable
+class Atasan extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, Notifiable, HasFactory;
 
-    protected $table = 'pegawais';
+    protected $table = 'atasans';
+
 
     /**
      * The attributes that are mass assignable.
@@ -23,12 +24,12 @@ class Pegawai extends Authenticatable
         'NIP',
         'nama',
         'jabatan',
-        'tahun_awal_kerja',
+        'nama_kelompok',
         'masa_kerja',
         'email',
-        'password',
-        'nama_kelompok'
+        'password'
     ];
+
 
     /**
      * The attributes that should be hidden for serialization.

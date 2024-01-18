@@ -68,6 +68,8 @@
                                         <th scope="col">Tanggal Mulai</th>
                                         <th scope="col">Tanggal Akhir</th>
                                         <th scope="col">Alamat Cuti</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -77,7 +79,9 @@
                                             <td>{{ $pengajuanCuti->alasan }}</td>
                                             <td>{{ $pengajuanCuti->tanggal_mulai_cuti }}</td>
                                             <td>{{ $pengajuanCuti->tanggal_akhir_cuti }}</td>
-                                            <td>{{ $pengajuanCuti->alamat }}</td>
+                                            <td>{{ $pengajuanCuti->alamat_cuti }}</td>
+                                            <td>{{ $pengajuanCuti->status }}</td>
+                                            <td>{{ $pengajuanCuti->status }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

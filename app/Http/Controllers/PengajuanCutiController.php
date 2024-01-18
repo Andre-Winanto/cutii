@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JatahCuti;
 use App\Models\PengajuanCuti;
+use App\Models\PersetujuanPertama;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -47,15 +48,15 @@ class PengajuanCutiController extends Controller
     public function store(Request $request)
     {
 
-        // $validated = $request->validate([
-        //     'NIP' => 'required',
-        //     'nama_kelompok' => 'required',
-        //     'jenis_cuti' => 'required',
-        //     'alasan' => 'required',
-        //     'tanggal_mulai_cuti' => 'required',
-        //     'tanggal_akhir_cuti' => 'required',
-        //     'alamat_cuti' => 'required'
-        // ]);
+        $validated = $request->validate([
+            'NIP' => 'required',
+            'nama_kelompok' => 'required',
+            'jenis_cuti' => 'required',
+            'alasan' => 'required',
+            'tanggal_mulai_cuti' => 'required',
+            'tanggal_akhir_cuti' => 'required',
+            'alamat_cuti' => 'required'
+        ]);
 
         // mengecek selisih hari
         $tanggalMulai = date_create($request->tanggal_mulai_cuti);
@@ -80,6 +81,16 @@ class PengajuanCutiController extends Controller
         if ($jumlahCuti > $sisaLiburan) {
             return back()->with('errorJumlahCuti', 'Jumlah Cuti Melewati Batas');
         }
+
+        // tambah data pengajuan cuti :
+        $getDataPengajuanCuti = PengajuanCuti::create($validated);
+
+        // tambah data persetujuan pertama :
+        $dataPersetujuanPertama = [
+            'pengajuan_cuti_id' => $getDataPengajuanCuti->id
+        ];
+
+        PersetujuanPertama::create($dataPersetujuanPertama);
 
         return redirect('dashboard/pengajuancuti')->with('success', 'Pengajuan cuti berhasil diajukan!');
     }

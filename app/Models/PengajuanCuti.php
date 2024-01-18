@@ -16,6 +16,12 @@ class PengajuanCuti extends Model
         'alasan',
         'tanggal_mulai_cuti',
         'tanggal_akhir_cuti',
-        'alamat'
+        'alamat_cuti',
+        'status'
     ];
+
+    public function persetujuanPertama()
+    {
+        $this->hasMany(PersetujuanPertama::class);
+    }
 }

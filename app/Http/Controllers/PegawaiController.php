@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
+use App\Models\JatahCuti;
 use Illuminate\Http\Request;
 
 class PegawaiController extends Controller
@@ -41,7 +42,7 @@ class PegawaiController extends Controller
 
         Pegawai::create($validated);
 
-        \App\Models\JatahCuti::create([
+        JatahCuti::create([
             'NIP' => $validated['NIP'],
             'tahun' => '2023',
             'jatah' => 12

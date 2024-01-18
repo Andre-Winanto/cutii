@@ -28,6 +28,7 @@
                                 <input type="hidden" name="NIP" value="{{ Auth::guard('pegawai')->user()->NIP }}">
                                 <input type="hidden" name="nama_kelompok"
                                     value="{{ Auth::guard('pegawai')->user()->nama_kelompok }}">
+
                                 <div class="form-group
                                         row">
                                     <label for="jenis_cuti" class="col-sm-3 text-end control-label col-form-label">Jenis
@@ -47,6 +48,7 @@
                                         @enderror
                                     </div>
                                 </div>
+
                                 <div class="form-group row">
                                     <label for="alasan"
                                         class="col-sm-3 text-end control-label col-form-label">Alasan</label>

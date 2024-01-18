@@ -28,6 +28,10 @@ class LoginController extends Controller
             return redirect('/');
         }
 
+        if (Auth::guard('atasan')->attempt($credentials)) {
+            return redirect('dashboard/persetujuan');
+        }
+
         return back()->with('loginError', 'Login Failed!');
     }
 

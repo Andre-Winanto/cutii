@@ -3,7 +3,10 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PengajuanCutiController;
-use App\Models\PengajuanCuti;
+use App\Http\Controllers\AtasanController;
+use App\Http\Controllers\PersetujuanPertamaController;
+use App\Models\PersetujuanKedua;
+use App\Models\PersetujuanPertama;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,7 +29,13 @@ Route::get('/login', [LoginController::class, 'login'])->name('login')->middlewa
 Route::post('/login', [LoginController::class, 'authenticate']);
 
 Route::resource('dashboard/datapegawai', PegawaiController::class)->middleware('auth:user');
-Route::resource('dashboard/pengajuancuti', PengajuanCutiController::class);
+Route::resource('dashboard/pengajuancuti', PengajuanCutiController::class)->middleware('auth:pegawai');
+Route::resource('dashboard/dataatasan', AtasanController::class)->middleware('auth:user');
+Route::get('dashboard/persetujuanpertama', [PersetujuanPertamaController::class, 'index'])->middleware('auth:atasan');
+
+Route::get('dashboard/persetujuan', function () {
+    return view('dashboardCuti.index');
+});
 
 Route::get('dashboard/cuti', function () {
     return view('dashboardCuti.index');
@@ -41,11 +50,16 @@ Route::get('/test2', function () {
 });
 
 Route::get('/test3', function () {
-    dd(Auth::guard('pegawai')->check());
+    dd(Auth::guard('atasan')->check());
+});
+
+Route::get('/test4', function () {
+    dd(Auth::guard()->check());
 });
 
 Route::get('/logoutt', function () {
     Auth::guard('pegawai')->logout();
     Auth::guard('user')->logout();
+    Auth::guard('atasan')->logout();
     return redirect('/login');
 });

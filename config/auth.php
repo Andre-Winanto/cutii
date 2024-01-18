@@ -51,6 +51,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'atasan' => [
+            'driver' => 'session',
+            'provider' => 'atasans',
+        ],
     ],
 
     /*
@@ -79,6 +84,11 @@ return [
         'pegawais' => [
             'driver' => 'eloquent',
             'model' => App\Models\Pegawai::class,
+        ],
+
+        'atasans' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Atasan::class,
         ],
     ],
 

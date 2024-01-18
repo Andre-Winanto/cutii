@@ -120,10 +120,18 @@
                                     <a class="dropdown-item" href="javascript:void(0)"><i
                                             class="ti-user m-r-5 m-l-5"></i>
                                         {{ Auth::guard('pegawai')->user()->nama }}</a>
-                                @else
+                                @endif
+
+                                @if (Auth::guard('user')->check())
                                     <a class="dropdown-item" href="javascript:void(0)"><i
                                             class="ti-user m-r-5 m-l-5"></i>
                                         {{ Auth::guard('user')->user()->name }}</a>
+                                @endif
+
+                                @if (Auth::guard('atasan')->check())
+                                    <a class="dropdown-item" href="javascript:void(0)"><i
+                                            class="ti-user m-r-5 m-l-5"></i>
+                                        {{ Auth::guard('atasan')->user()->nama }}</a>
                                 @endif
 
 

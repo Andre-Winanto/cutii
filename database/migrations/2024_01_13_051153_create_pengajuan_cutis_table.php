@@ -21,7 +21,14 @@ return new class extends Migration
             $table->date('tanggal_mulai_cuti');
             $table->date('tanggal_akhir_cuti');
             $table->string('alamat_cuti')->nullable();
+            $table->string('status')->default('diproses');
             $table->timestamps();
+
+            $table->foreign('NIP')
+                ->references('NIP')
+                ->on('pegawais')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 
