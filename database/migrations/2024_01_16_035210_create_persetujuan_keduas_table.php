@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('persetujuan_keduas', function (Blueprint $table) {
             $table->id();
-            $table->enum('status', ['tolak', 'setuju']);
+            $table->enum('status', ['tolak', 'setuju'])->nullable();
+            $table->string('keterangan')->nullable();
             $table->timestamps();
 
             $table->foreignId('persetujuan_pertama_id')

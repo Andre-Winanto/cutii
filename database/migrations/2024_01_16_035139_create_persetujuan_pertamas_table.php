@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->enum('status', ['', 'setuju', 'tolak'])->nullable();
             $table->string('keterangan')->nullable();
+            $table->string('kelompok');
 
             $table->foreignId('pengajuan_cuti_id')
                 ->constrained()

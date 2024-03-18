@@ -1,0 +1,137 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 100%;
+    /* Lebar container 100% agar mengikuti ukuran A4 */
+    max-width: 800px;
+    /* Tetapkan lebar maksimum */
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Mengatur agar konten di tengah */
+    border-bottom: 0px solid rgb(31, 73, 125);
+    padding: 20px, 0;
+    margin-bottom: 20px;
+}
+
+.logo {
+    float: left;
+    /* Mengatur agar logo berada di sebelah kiri */
+    margin-right: 10px;
+    /* Jarak antara logo dan teks */
+    margin-left: 20px;
+    /* Jarak kiri logo */
+}
+
+.logo img {
+    max-width: 80px;
+}
+
+
+.company-info h1 {
+    margin: 0;
+    font-size: 15px;
+    font-family: "Times New Roman";
+    font-weight: normal;
+    color: rgb(31, 73, 125);
+}
+
+
+.company-info h2 {
+    margin: 0;
+    font-size: 18px;
+    font-family: "Times New Roman";
+    color: rgb(31, 73, 125);
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+.company-info p {
+    margin: 0;
+    font-size: 12px;
+    font-family: "Times New Roman";
+    font-weight: normal;
+    color: rgb(31, 73, 125);
+}
+
+.pertama {
+    text-align: center;
+    /* Mengatur konten isi surat ke kiri */
+}
+
+.pertama h1 {
+    margin: 0;
+    font-size: 16px;
+    font-family: "Times New Roman";
+    font-weight: normal;
+    font-weight: bold;
+    text-decoration-line: underline;
+}
+
+.pertama p {
+    margin: 0;
+    font-size: 16px;
+    font-family: "Times New Roman";
+    font-weight: normal;
+}
+
+.nama {
+    line-height: 1.6;
+    font-size: 15px;
+    margin-left: 70px;
+    /* Jarak kiri */
+    margin-right: 70px;
+    font-weight: normal;
+    text-align: left;
+    /* Mengatur konten isi surat ke kiri */
+    font-family: "Times New Roman";
+}
+
+.content {
+    text-align: left;
+    font-family: "Times New Roman";
+
+}
+
+.content h1 {
+    line-height: 1.6;
+    font-size: 15px;
+    margin-left: 70px;
+    /* Jarak kiri */
+    margin-right: 70px;
+    font-weight: normal;
+}
+
+
+.content h2 {
+    line-height: 1.6;
+    font-size: 15px;
+    margin-left: 100px;
+    margin-right: 70px;
+    font-weight: normal;
+}
+
+.content p {
+    line-height: 1.6;
+    font-size: 15px;
+    margin-left: 350px;
+    margin-right: 70px;
+    font-weight: normal;
+}
+
+.ttd img {
+    max-width: 120px;
+}

@@ -35,6 +35,7 @@ class PegawaiController extends Controller
             'NIP' => 'required|max:18|min:18|unique:pegawais',
             'nama' => 'required|max:255',
             'jabatan' => 'required',
+            'nama_kelompok' => 'required',
             'masa_kerja' => 'required|max:3',
             'email' => 'required|max:20|unique:pegawais',
             'password' => 'required|max:9'
@@ -44,7 +45,7 @@ class PegawaiController extends Controller
 
         JatahCuti::create([
             'NIP' => $validated['NIP'],
-            'tahun' => '2023',
+            'tahun' => '2024',
             'jatah' => 12
         ]);
 

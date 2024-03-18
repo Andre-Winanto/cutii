@@ -4,9 +4,9 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PengajuanCutiController;
 use App\Http\Controllers\AtasanController;
+use App\Http\Controllers\PersetujuanKeduaController;
 use App\Http\Controllers\PersetujuanPertamaController;
-use App\Models\PersetujuanKedua;
-use App\Models\PersetujuanPertama;
+use App\Models\PengajuanCuti;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,9 +29,26 @@ Route::get('/login', [LoginController::class, 'login'])->name('login')->middlewa
 Route::post('/login', [LoginController::class, 'authenticate']);
 
 Route::resource('dashboard/datapegawai', PegawaiController::class)->middleware('auth:user');
-Route::resource('dashboard/pengajuancuti', PengajuanCutiController::class)->middleware('auth:pegawai');
 Route::resource('dashboard/dataatasan', AtasanController::class)->middleware('auth:user');
-Route::get('dashboard/persetujuanpertama', [PersetujuanPertamaController::class, 'index'])->middleware('auth:atasan');
+
+
+Route::middleware('auth:pegawai')->group(function () {
+    Route::resource('dashboard/pengajuancuti', PengajuanCutiController::class);
+    Route::get('dashboard/cetakcuti/{data}', [PengajuanCutiController::class, 'cetakcuti']);
+    Route::get('dashboard/cetaksurat/{data}', [PengajuanCutiController::class, 'cetaksurat']);
+});
+
+Route::middleware('auth:atasan')->group(function () {
+    Route::get('dashboard/persetujuanpertama', [PersetujuanPertamaController::class, 'index']);
+    Route::get('dashboard/persetujuanpertama/{data}/show', [PersetujuanPertamaController::class, 'show']);
+    Route::post('dahsboard/persetujuanpertama/{data}', [PersetujuanPertamaController::class, 'persetujuan']);
+});
+
+Route::middleware('auth:atasan')->group(function () {
+    Route::get('dahsboard/persetujuankedua', [PersetujuanKeduaController::class, 'index']);
+    Route::get('dashboard/persetujuankedua/{data}/show', [PersetujuanKeduaController::class, 'show']);
+    Route::post('dashboard/persetujuankedua/{data}', [PersetujuanKeduaController::class, 'persetujuan']);
+});
 
 Route::get('dashboard/persetujuan', function () {
     return view('dashboardCuti.index');

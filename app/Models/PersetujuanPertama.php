@@ -11,6 +11,7 @@ class PersetujuanPertama extends Model
 
     protected $fillable = [
         'status',
+        'kelompok',
         'keterangan',
         'pengajuan_cuti_id'
     ];

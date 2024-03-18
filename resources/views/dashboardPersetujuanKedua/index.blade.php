@@ -14,7 +14,6 @@
 
                     <div class="card">
 
-
                         @if (session()->has('success'))
                             <div class="card-body" style="padding-top: 5px;padding-bottom: 5px">
                                 <div class="alert alert-success alert-dismissible m-0" role="alert">
@@ -27,7 +26,7 @@
                         @endif
 
                         <div class="card-body mb-3 mt-1" style="padding-top: 5px;padding-bottom: 5px">
-                            <h5 class="card-title mb-0">Data Perseteujuan Pertama</h5>
+                            <h5 class="card-title mb-0">Data Persetujuan Kedua</h5>
                         </div>
 
                         <table class="table">
@@ -41,24 +40,24 @@
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
-                            @foreach ($persetujuanPertamas as $persetujuanPertama)
+                            @foreach ($persetujuanKeduas as $persetujuanKedua)
                                 <tbody>
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
-                                        <td>{{ $persetujuanPertama->pengajuanCuti->NIP }}</td>
-                                        <td>{{ $persetujuanPertama->pengajuanCuti->jenis_cuti }}</td>
-                                        <td>{{ $persetujuanPertama->pengajuanCuti->alasan }}</td>
-                                        <td>{{ $persetujuanPertama->pengajuanCuti->alamat_cuti }}</td>
+                                        <td>{{ $persetujuanKedua->persetujuanPertama->pengajuanCuti->NIP }}</td>
+                                        <td>{{ $persetujuanKedua->persetujuanPertama->pengajuanCuti->jenis_cuti }}</td>
+                                        <td>{{ $persetujuanKedua->persetujuanPertama->pengajuanCuti->alasan }}</td>
+                                        <td>{{ $persetujuanKedua->persetujuanPertama->pengajuanCuti->alamat_cuti }}</td>
                                         <td>
 
                                             <div class="d-flex gap-4">
-                                                <a href="{{ url('dashboard/persetujuanpertama/' . $persetujuanPertama->id . '/show') }}"
+                                                <a href="{{ url('dashboard/persetujuankedua/' . $persetujuanKedua->id . '/show') }}"
                                                     class="btn btn-info"
                                                     style="padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px;
                                                 margin-right: 5px"><i
                                                         class="fas fa-eye"></i></a>
 
-                                                @if (!$persetujuanPertama->status)
+                                                @if (!$persetujuanKedua->status)
                                                     {{-- Button Trigger Modal --}}
                                                     <button class="btn btn-warning"
                                                         style="padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px;
@@ -72,7 +71,7 @@
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <form
-                                                                    action="{{ url('dahsboard/persetujuanpertama/' . $persetujuanPertama->id) }}"
+                                                                    action="{{ url('dashboard/persetujuankedua/' . $persetujuanKedua->id) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     <div class="modal-header">

@@ -69,7 +69,8 @@
                                         <th scope="col">Tanggal Akhir</th>
                                         <th scope="col">Alamat Cuti</th>
                                         <th scope="col">Status</th>
-                                        <th scope="col">Aksi</th>
+                                        <th scope="col">Lihat Form</th>
+                                        <th scope="col">Cetak Surat</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -80,8 +81,27 @@
                                             <td>{{ $pengajuanCuti->tanggal_mulai_cuti }}</td>
                                             <td>{{ $pengajuanCuti->tanggal_akhir_cuti }}</td>
                                             <td>{{ $pengajuanCuti->alamat_cuti }}</td>
-                                            <td>{{ $pengajuanCuti->status }}</td>
-                                            <td>{{ $pengajuanCuti->status }}</td>
+                                            <td><span
+                                                    class="badge {{ $pengajuanCuti->status == 'disetujui' ? 'bg-success' : 'bg-warning' }}">{{ $pengajuanCuti->status }}</span>
+                                            </td>
+                                            <td>
+                                                @if ($pengajuanCuti->status == 'disetujui')
+                                                    <a href="{{ url('dashboard/cetakcuti/' . $pengajuanCuti->id) }}"
+                                                        class="btn btn-success"
+                                                        style="padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px;
+                                                margin-right: 5px"><i
+                                                            class="fas fa-file"></i></a>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($pengajuanCuti->status == 'disetujui')
+                                                    <a href="{{ url('dashboard/cetaksurat/' . $pengajuanCuti->id) }}"
+                                                        class="btn btn-success"
+                                                        style="padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px;
+                                                margin-right: 5px"><i
+                                                            class="fas fa-file"></i></a>
+                                                @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

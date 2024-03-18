@@ -28,6 +28,9 @@ class DatabaseSeeder extends Seeder
             'nama' => 'Balai'
         ]);
 
+        \App\Models\Kelompok::create([
+            'nama' => 'APBN'
+        ]);
 
         \App\Models\Pegawai::create([
             'NIP' => '00001',
@@ -49,6 +52,36 @@ class DatabaseSeeder extends Seeder
             'nama_kelompok' => 'KTU'
         ]);
 
+        \App\Models\Pegawai::create([
+            'NIP' => '00003',
+            'nama' => 'Ihsan',
+            'jabatan' => 'Wakil APBN',
+            'masa_kerja' => '6',
+            'email' => 'ihsan@gmail.com',
+            'password' => 'password',
+            'nama_kelompok' => 'APBN'
+        ]);
+
+        \App\Models\Atasan::create([
+            'NIP' => '00004',
+            'nama' => 'Bambang',
+            'jabatan' => 'Ketua APBN',
+            'masa_kerja' => '6',
+            'email' => 'bambang@gmail.com',
+            'password' => 'password',
+            'nama_kelompok' => 'APBN'
+        ]);
+
+        \App\Models\Atasan::create([
+            'NIP' => '00005',
+            'nama' => 'Otong',
+            'jabatan' => 'Ketua Balai',
+            'masa_kerja' => '6',
+            'email' => 'otonghunt@gmail.com',
+            'password' => 'password',
+            'nama_kelompok' => 'Balai'
+        ]);
+
         \App\Models\JatahCuti::create([
             'NIP' => '00002',
             'tahun' => '2024',
@@ -63,6 +96,12 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\JatahCuti::create([
             'NIP' => '00001',
+            'tahun' => '2024',
+            'jatah' => 12
+        ]);
+
+        \App\Models\JatahCuti::create([
+            'NIP' => '00003',
             'tahun' => '2024',
             'jatah' => 12
         ]);

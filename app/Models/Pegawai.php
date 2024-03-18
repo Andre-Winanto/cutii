@@ -25,6 +25,7 @@ class Pegawai extends Authenticatable
         'jabatan',
         'tahun_awal_kerja',
         'masa_kerja',
+        'nama_kelompok',
         'email',
         'password',
         'nama_kelompok'

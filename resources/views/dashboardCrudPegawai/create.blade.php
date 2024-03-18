@@ -41,6 +41,7 @@
                                         @enderror
                                     </div>
                                 </div>
+
                                 <div class="form-group row">
                                     <label for="jabatan"
                                         class="col-sm-3 text-end control-label col-form-label">Jabatan</label>
@@ -49,6 +50,22 @@
                                             name="jabatan" value="{{ old('jabatan') }}" id="jabatan"
                                             placeholder="Masukan Jabatan" />
                                         @error('jabatan')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="kelompok"
+                                        class="col-sm-3 text-end control-label col-form-label">Kelompok</label>
+                                    <div class="col-sm-9">
+                                        <input type="text"
+                                            class="form-control @error('nama_kelompok') is-invalid @enderror"
+                                            name="nama_kelompok" value="{{ old('nama_kelompok') }}" id="kelompok"
+                                            placeholder="Masukan Kelompok" />
+                                        @error('nama_kelompok')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>

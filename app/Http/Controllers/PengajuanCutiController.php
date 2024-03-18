@@ -8,6 +8,8 @@ use App\Models\PersetujuanPertama;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use function PHPUnit\Framework\isEmpty;
+use function PHPUnit\Framework\isNull;
 
 class PengajuanCutiController extends Controller
 {
@@ -16,6 +18,8 @@ class PengajuanCutiController extends Controller
      */
     public function index()
     {
+
+        // return PengajuanCuti::where('NIP', Auth::guard('pegawai')->user()->NIP)->get();
         return view('dashboardPengajuanCuti.index', [
             'jatahCutis' => JatahCuti::where('NIP', Auth::guard('pegawai')->user()->NIP)->get(),
             'pengajuanCutis' => PengajuanCuti::where('NIP', Auth::guard('pegawai')->user()->NIP)->get()
@@ -87,7 +91,8 @@ class PengajuanCutiController extends Controller
 
         // tambah data persetujuan pertama :
         $dataPersetujuanPertama = [
-            'pengajuan_cuti_id' => $getDataPengajuanCuti->id
+            'pengajuan_cuti_id' => $getDataPengajuanCuti->id,
+            'kelompok' => Auth::guard('pegawai')->user()->nama_kelompok
         ];
 
         PersetujuanPertama::create($dataPersetujuanPertama);
@@ -125,5 +130,31 @@ class PengajuanCutiController extends Controller
     public function destroy(PengajuanCuti $pengajuanCuti)
     {
         //
+    }
+
+    public function cetakcuti(PengajuanCuti $data)
+    {
+        // ambil data jatah cuti berdasarkan 3 tahun yang lalu :
+        $tahunSekarang = date('Y');
+        $tahunSekarang = intval($tahunSekarang);
+        $duaTahunLalu = $tahunSekarang - 2;
+
+        return view('dashboardPengajuanCuti.cetak', [
+            'pengajuanCuti' => $data,
+            'jatahCutiDuaTahunLalu' => JatahCuti::where('NIP', Auth::guard('pegawai')->user()->NIP)->where('tahun', ($duaTahunLalu))->first(),
+            'jatahCutiSatuTahunLalu' => JatahCuti::where('NIP', Auth::guard('pegawai')->user()->NIP)->where('tahun', ($duaTahunLalu + 1))->first(),
+            'jatahCutiTahunSekarang' => JatahCuti::where('NIP', Auth::guard('pegawai')->user()->NIP)->where('tahun', $tahunSekarang)->first()
+        ]);
+    }
+
+    public function cetaksurat(PengajuanCuti $data)
+    {
+        return view(
+            'dashboardPengajuanCuti.cetaksurat',
+            [
+                'pengajuanCuti' => $data,
+                'dataDiri' => Auth::guard('pegawai')->user(),
+            ]
+        );
     }
 }
