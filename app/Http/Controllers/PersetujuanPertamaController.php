@@ -14,16 +14,15 @@ class PersetujuanPertamaController extends Controller
 {
     public function index()
     {
-        // Auth::guard('atasan')->user()->nama_kelompok
+        $kelompok = Auth::guard('atasan')->user()->nama_kelompok;
         return view('dashboardPersetujuanPertama.index', [
-            'persetujuanPertamas' => PersetujuanPertama::where('kelompok', 'KTU')->get()
+            'persetujuanPertamas' => PersetujuanPertama::where('kelompok', $kelompok)->get()
         ]);
     }
 
     public function show(PersetujuanPertama $data)
     {
 
-        // return $data->pengajuan_cuti_id;
         $x = PengajuanCuti::where('id', $data->pengajuan_cuti_id)->first();
         $nama = Pegawai::where('NIP', $x->NIP)->first();
         return view('dashboardPersetujuanPertama.show', [
@@ -39,17 +38,15 @@ class PersetujuanPertamaController extends Controller
             'keterangan' => ''
         ]);
 
-        $dataPerstujuanPertama = PersetujuanPertama::where('id', $data->id)
+        PersetujuanPertama::where('id', $data->id)
             ->update($validated);
-
-        return $dataPerstujuanPertama;
 
         if ($request->status == 'setuju') {
             PersetujuanKedua::create(['persetujuan_pertama_id' => $data->id]);
         } else {
-            PengajuanCuti::where('id', $dataPerstujuanPertama->id)
+            PengajuanCuti::where('id', $data->pengajuanCuti->id)
                 ->update(['status' => 'ditolak']);
-            return 'ditolak';
+            return back()->with('success', 'Data perstujuan berhasil di tolak!');
         }
 
         return back()->with('success', 'Data perstujuan berhasil di ubah!');

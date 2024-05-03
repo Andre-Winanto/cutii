@@ -25,6 +25,8 @@ class Atasan extends Authenticatable
         'nama',
         'jabatan',
         'nama_kelompok',
+        'ttd',
+        'golongan',
         'masa_kerja',
         'email',
         'password'

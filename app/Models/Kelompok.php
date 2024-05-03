@@ -10,6 +10,12 @@ class Kelompok extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nama'
+        'nama_kelompok'
     ];
+
+    public function dataKetua()
+    {
+        // nama_kelompok1 => foreign key, nama_kelompok2 =>local key.
+        return $this->hasOne(Atasan::class, 'nama_kelompok', 'nama_kelompok');
+    }
 }

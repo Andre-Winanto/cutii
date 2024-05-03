@@ -22,6 +22,7 @@ class PengajuanCuti extends Model
 
     public function persetujuanPertama()
     {
-        $this->hasMany(PersetujuanPertama::class);
+        // $this->hasMany(PersetujuanPertama::class);
+        return $this->hasOne(PersetujuanPertama::class);
     }
 }

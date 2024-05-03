@@ -81,8 +81,16 @@
                                             <td>{{ $pengajuanCuti->tanggal_mulai_cuti }}</td>
                                             <td>{{ $pengajuanCuti->tanggal_akhir_cuti }}</td>
                                             <td>{{ $pengajuanCuti->alamat_cuti }}</td>
-                                            <td><span
-                                                    class="badge {{ $pengajuanCuti->status == 'disetujui' ? 'bg-success' : 'bg-warning' }}">{{ $pengajuanCuti->status }}</span>
+                                            <td>
+
+                                                @if ($pengajuanCuti->status == 'disetujui')
+                                                    <span class="badge bg-success">{{ $pengajuanCuti->status }}</span>
+                                                @elseif($pengajuanCuti->status == 'tolak')
+                                                    <span class="badge bg-danger">{{ $pengajuanCuti->status }}</span>
+                                                @else
+                                                    <span class="badge bg-warning">{{ $pengajuanCuti->status }}</span>
+                                                @endif
+
                                             </td>
                                             <td>
                                                 @if ($pengajuanCuti->status == 'disetujui')

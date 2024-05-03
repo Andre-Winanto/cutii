@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\JatahCuti;
 use App\Models\PengajuanCuti;
 use App\Models\PersetujuanPertama;
+use App\Models\PersetujuanKedua;
+use App\Models\Atasan;
+use App\Models\Kelompok;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
-use function PHPUnit\Framework\isEmpty;
-use function PHPUnit\Framework\isNull;
 
 class PengajuanCutiController extends Controller
 {
@@ -51,7 +51,6 @@ class PengajuanCutiController extends Controller
      */
     public function store(Request $request)
     {
-
         $validated = $request->validate([
             'NIP' => 'required',
             'nama_kelompok' => 'required',
@@ -90,12 +89,31 @@ class PengajuanCutiController extends Controller
         $getDataPengajuanCuti = PengajuanCuti::create($validated);
 
         // tambah data persetujuan pertama :
-        $dataPersetujuanPertama = [
-            'pengajuan_cuti_id' => $getDataPengajuanCuti->id,
-            'kelompok' => Auth::guard('pegawai')->user()->nama_kelompok
-        ];
+        // cek apakah kelompok balai : 
+        // jika balai maka set $dataPersetujuanPertama 'status' == setuju, dan keterangan diterima : 
 
-        PersetujuanPertama::create($dataPersetujuanPertama);
+        if ($validated['nama_kelompok'] == 'Balai') {
+
+            $dataPersetujuanPertama = [
+                'pengajuan_cuti_id' => $getDataPengajuanCuti->id,
+                'kelompok' => Auth::guard('pegawai')->user()->nama_kelompok,
+                'status' => 'setuju',
+                'keterangan' => 'diterima'
+            ];
+
+            $getDataPersetujuanPertama = PersetujuanPertama::create($dataPersetujuanPertama);
+
+            // buat persetujuan kedua langsung : 
+            PersetujuanKedua::create(['persetujuan_pertama_id' => $getDataPersetujuanPertama->id]);
+        } else {
+            // jika bukan balai : 
+            $dataPersetujuanPertama = [
+                'pengajuan_cuti_id' => $getDataPengajuanCuti->id,
+                'kelompok' => Auth::guard('pegawai')->user()->nama_kelompok
+            ];
+
+            PersetujuanPertama::create($dataPersetujuanPertama);
+        }
 
         return redirect('dashboard/pengajuancuti')->with('success', 'Pengajuan cuti berhasil diajukan!');
     }
@@ -134,26 +152,60 @@ class PengajuanCutiController extends Controller
 
     public function cetakcuti(PengajuanCuti $data)
     {
+
+        // dapatkan data ketua balai : 
+        $dataKetuaBalai = Atasan::where('nama_kelompok', 'Balai')->first();
+
+        // dapatkan data kelompok dari nama kelompok : 
+        $dataKelompok = Kelompok::where('nama_kelompok', $data->nama_kelompok)->first();
+        $dataKetuaKelompok = $dataKelompok->dataKetua;
+
+        // data persetujuan pertama : 
+        $dataPersetujuanPertama = $data->persetujuanPertama;
+
+        // data persetujuan kedua : 
+        $dataPersetujuanKedua = $dataPersetujuanPertama->persetujuanKedua;
+
         // ambil data jatah cuti berdasarkan 3 tahun yang lalu :
         $tahunSekarang = date('Y');
         $tahunSekarang = intval($tahunSekarang);
         $duaTahunLalu = $tahunSekarang - 2;
 
+        // dapatkan data selisih hari : 
+        $tanggal_mulai_cuti = date_create($data->tanggal_mulai_cuti);
+        $tanggal_akhir_cuti = date_create($data->tanggal_akhir_cuti);
+        $jumlahCuti = date_diff($tanggal_mulai_cuti, $tanggal_akhir_cuti);
+        $jumlahCuti = $jumlahCuti->days + 1;
+
         return view('dashboardPengajuanCuti.cetak', [
             'pengajuanCuti' => $data,
             'jatahCutiDuaTahunLalu' => JatahCuti::where('NIP', Auth::guard('pegawai')->user()->NIP)->where('tahun', ($duaTahunLalu))->first(),
             'jatahCutiSatuTahunLalu' => JatahCuti::where('NIP', Auth::guard('pegawai')->user()->NIP)->where('tahun', ($duaTahunLalu + 1))->first(),
-            'jatahCutiTahunSekarang' => JatahCuti::where('NIP', Auth::guard('pegawai')->user()->NIP)->where('tahun', $tahunSekarang)->first()
+            'jatahCutiTahunSekarang' => JatahCuti::where('NIP', Auth::guard('pegawai')->user()->NIP)->where('tahun', $tahunSekarang)->first(),
+            'dataKetuaKelompok' => $dataKetuaKelompok,
+            'dataPersetujuanPertama' => $dataPersetujuanPertama,
+            'dataPersetujuanKedua' => $dataPersetujuanKedua,
+            'dataKetuaBalai' => $dataKetuaBalai,
+            'jumlahCuti' => $jumlahCuti
         ]);
     }
 
     public function cetaksurat(PengajuanCuti $data)
     {
+
+
+        // dapatkan data selisih hari : 
+        $tanggal_mulai_cuti = date_create($data->tanggal_mulai_cuti);
+        $tanggal_akhir_cuti = date_create($data->tanggal_akhir_cuti);
+        $jumlahCuti = date_diff($tanggal_mulai_cuti, $tanggal_akhir_cuti);
+        $jumlahCuti = $jumlahCuti->days + 1;
+
         return view(
             'dashboardPengajuanCuti.cetaksurat',
             [
                 'pengajuanCuti' => $data,
                 'dataDiri' => Auth::guard('pegawai')->user(),
+                'jumlahCuti' => $jumlahCuti
             ]
         );
     }

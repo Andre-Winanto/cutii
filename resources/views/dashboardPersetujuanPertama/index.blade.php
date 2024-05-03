@@ -11,9 +11,7 @@
             <!-- ============================================================== -->
             <div class="row">
                 <div class="col-12">
-
                     <div class="card">
-
 
                         @if (session()->has('success'))
                             <div class="card-body" style="padding-top: 5px;padding-bottom: 5px">

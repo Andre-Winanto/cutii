@@ -55,14 +55,12 @@
                     <td width="10%">Jabatan</td>
                     <td width="60%">{{ Auth::guard('pegawai')->user()->jabatan }}</td>
                     <td width="10%">Masa Kerja</td>
-                    <td width="20%">{{ Auth::guard('pegawai')->user()->masa_kerja }}</td>
+                    <td width="20%">{{ Auth::guard('pegawai')->user()->masa_kerja }} Tahun</td>
                 </tr>
 
                 <tr>
                     <td width="10%">Unit Kerja</td>
                     <td width="90%" colspan="3"> Balai Standarisasi Instrumen Pertanian Jambi</td>
-                    <!-- <td width="10%">Masa Kerja</td>
-                    <td width="20%">kosong</td> -->
                 </tr>
 
             </table>
@@ -149,7 +147,7 @@
 
                 <tr>
                     <td width="10%">Selama</td>
-                    <td width="26%">Kosong</td>
+                    <td width="26%">{{ $jumlahCuti }} Hari</td>
                     <td width="14%">Pada Tanggal</td>
                     <td width="46%">{{ $pengajuanCuti->tanggal_mulai_cuti }}</td>
                 </tr>
@@ -190,7 +188,7 @@
                     <td width="15%">kosong</td>
                 </tr>
                 <tr>
-                    <td width="12%">N-1 2022</td>
+                    <td width="12%">N-1</td>
                     <td width="12%">
                         @if ($jatahCutiSatuTahunLalu)
                             {{ $jatahCutiSatuTahunLalu->jatah }}
@@ -226,11 +224,13 @@
 
                 </tr>
 
-
                 <tr>
                     <td width="38%" rowspan="3">{{ $pengajuanCuti->alamat_cuti }}</td>
-                    <td width="24%" rowspan="3"></td>
-                    <td rowspan="1" height="100px">kosong</td>
+                    <td width="24%" rowspan="3">{{ Auth::guard('pegawai')->user()->no_hp }}</td>
+                    <td rowspan="1" height="100px"><img src="{{ asset('file/ttd_kasubag.jpg') }} "
+                            style="width: 100%; height: 100%;" alt="">
+                    </td>
+                    </td>
                     <!-- <td width="24%" rowspan="2"> kosong</td> -->
                     <!-- <td width="24%" rowspan=""> kosong</td> -->
                 </tr>
@@ -267,18 +267,23 @@
 
 
                 <tr>
-                    <td width="20.5%" rowspan="4"> kosong</td>
-                    <td width="20.5%" rowspan="4"> kosong</td>
-                    <td width="20.5%" rowspan="4"> kosong</td>
+                    <td width="20.5%" rowspan="4">
+                        @if ($dataPersetujuanPertama->status == 'setuju')
+                            <p style="font-size: 50px"><i class="bi bi-check-all"></i></p>
+                        @endif
+                    </td>
+                    <td width="20.5%" rowspan="4"></td>
+                    <td width="20.5%" rowspan="4"></td>
                     <td width="38.5">Atasan Langsung </td>
                 </tr>
 
                 <tr>
-                    <td rowspan="1" height="100px">kosong</td>
+                    <td rowspan="1" height="100px"><img style="width: 100%; height: 100%"
+                            src="{{ asset('file/' . $dataKetuaKelompok->ttd) }}" alt=""></td>
                 </tr>
 
                 <tr>
-                    <td>()</td>
+                    <td>({{ $dataKetuaKelompok->NIP }})</td>
                 </tr>
 
 
@@ -306,20 +311,24 @@
 
                 </tr>
 
-
                 <tr>
-                    <td width="20.5%" rowspan="4"> kosong</td>
-                    <td width="20.5%" rowspan="4"> kosong</td>
-                    <td width="20.5%" rowspan="4"> kosong</td>
+                    <td width="20.5%" rowspan="4">
+                        @if ($dataPersetujuanKedua->status == 'setuju')
+                            <p style="font-size: 50px"><i class="bi bi-check-all"></i></p>
+                        @endif
+                    </td>
+                    <td width="20.5%" rowspan="4"></td>
+                    <td width="20.5%" rowspan="4"></td>
                     <td width="38.5">Atasan Langsung </td>
                 </tr>
 
                 <tr>
-                    <td rowspan="1" height="100px">kosong</td>
+                    <td rowspan="1" height="100px"><img style="width: 100%; height: 100%"
+                            src="{{ asset('file/' . $dataKetuaBalai->ttd) }}" alt=""></td>
                 </tr>
 
                 <tr>
-                    <td>()</td>
+                    <td>({{ $dataKetuaBalai->NIP }})</td>
                 </tr>
 
 

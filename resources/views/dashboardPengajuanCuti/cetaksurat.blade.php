@@ -31,7 +31,7 @@
 
         <div class="pertama">
             <h1>SURAT IZIN CUTI TAHUNAN</h1>
-            <p>Nomor : $(Nomor Naskah)</p>
+            <p>Nomor : {{ $pengajuanCuti->persetujuanPertama->persetujuanKedua->surat->no_surat }}</p>
         </div>
 
         <div class="content">
@@ -81,18 +81,17 @@
                 </table>
             </div>
 
-
             <h1>
                 <tr>Terhitung Mulai Tanggal</tr>
                 <tr>
-                    {{ $pengajuanCuti->tanggal_mulai_cuti }}
+                    {{ date('d-m-Y', strtotime($pengajuanCuti->tanggal_mulai_cuti)) }}
                 </tr>
                 <tr>s.d </tr>
                 <tr>
-                    {{ $pengajuanCuti->tanggal_akhir_cuti }}
+                    {{ date('d-m-Y', strtotime($pengajuanCuti->tanggal_akhir_cuti)) }}
                 </tr>
                 <tr> ( </tr>
-                <tr>..</tr>
+                <tr>{{ $jumlahCuti }}</tr>
                 <tr>hari kerja
                 <tr>),</tr> dengan ketentuan sebagai berikut: </tr>
             </h1>
@@ -108,14 +107,16 @@
 
 
             <p>
-                Jambi, ${tanggal_naskah}
+                Jambi,
+                {{ date('d-m-Y', strtotime($pengajuanCuti->persetujuanPertama->persetujuanKedua->surat->tanggal_disahkan)) }}
                 <br>
                 <br>
                 Ditandatangani secara elektronik oleh
                 <br>
                 ${jabatan_pengirim},
                 <br>
-                Jambi, ${tanggal_naskah}
+                Jambi,
+                {{ date('d-m-Y', strtotime($pengajuanCuti->persetujuanPertama->persetujuanKedua->surat->tanggal_disahkan)) }}
             </p>
 
             <div class="ttd">

@@ -19,4 +19,9 @@ class PersetujuanKedua extends Model
     {
         return $this->belongsTo(PersetujuanPertama::class);
     }
+
+    public function surat()
+    {
+        return $this->hasOne(Surat::class);
+    }
 }

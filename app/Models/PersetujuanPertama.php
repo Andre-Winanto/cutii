@@ -20,4 +20,9 @@ class PersetujuanPertama extends Model
     {
         return $this->belongsTo(PengajuanCuti::class);
     }
+
+    public function persetujuanKedua()
+    {
+        return $this->hasOne(PersetujuanKedua::class);
+    }
 }

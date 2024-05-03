@@ -37,6 +37,8 @@
                                     <th scope="col">NIP</th>
                                     <th scope="col">Nama</th>
                                     <th scope="col">Jabatan</th>
+                                    <th scope="col">Kelompok</th>
+                                    <th scope="col">Golongan</th>
                                     <th scope="col">Masa Kerja (thn)</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Aksi</th>
@@ -49,6 +51,8 @@
                                         <td>{{ $pegawai->NIP }}</td>
                                         <td>{{ $pegawai->nama }}</td>
                                         <td>{{ $pegawai->jabatan }}</td>
+                                        <td>{{ $pegawai->nama_kelompok }}</td>
+                                        <td>{{ $pegawai->golongan }}</td>
                                         <td>{{ $pegawai->masa_kerja }}</td>
                                         <td>{{ $pegawai->email }}</td>
                                         <td>

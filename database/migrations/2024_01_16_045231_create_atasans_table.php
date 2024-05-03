@@ -18,14 +18,16 @@ return new class extends Migration
             $table->string('jabatan');
             $table->string('masa_kerja');
             $table->string('nama_kelompok')->unique();
+            $table->string('golongan');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('ttd');
             $table->rememberToken();
             $table->timestamps();
 
             $table->foreign('nama_kelompok')
-                ->references('nama')
+                ->references('nama_kelompok')
                 ->on('kelompoks')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

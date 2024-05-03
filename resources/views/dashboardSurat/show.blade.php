@@ -22,7 +22,7 @@
                                         Nama
                                     </td>
                                     <td>
-                                        {{ $getDataPegawai->nama }}
+                                        {{ $dataPegawai->nama }}
                                     </td>
                                 </tr>
                                 <tr>
@@ -106,6 +106,22 @@
                                     </td>
                                     <td>
                                         {{ $persetujuanKedua->keterangan }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Nomor Surat
+                                    </td>
+                                    <td>
+                                        {{ $data->no_surat }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Tanggal Disahkan
+                                    </td>
+                                    <td>
+                                        {{ $persetujuanKedua->tanggal_disahkan }}
                                     </td>
                                 </tr>
                             </tbody>

@@ -6,6 +6,7 @@ use App\Http\Controllers\PengajuanCutiController;
 use App\Http\Controllers\AtasanController;
 use App\Http\Controllers\PersetujuanKeduaController;
 use App\Http\Controllers\PersetujuanPertamaController;
+use App\Http\Controllers\SuratController;
 use App\Models\PengajuanCuti;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +32,11 @@ Route::post('/login', [LoginController::class, 'authenticate']);
 Route::resource('dashboard/datapegawai', PegawaiController::class)->middleware('auth:user');
 Route::resource('dashboard/dataatasan', AtasanController::class)->middleware('auth:user');
 
+Route::middleware('auth:user')->group(function () {
+    Route::get('dashboard/surat', [SuratController::class, 'index']);
+    Route::get('dashboard/surat/{data}/show', [SuratController::class, 'show']);
+    Route::post('dashboard/surat', [SuratController::class, 'store']);
+});
 
 Route::middleware('auth:pegawai')->group(function () {
     Route::resource('dashboard/pengajuancuti', PengajuanCutiController::class);

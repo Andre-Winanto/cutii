@@ -28,7 +28,7 @@
                         </div>
 
                         <div class="card-body" style="padding-top: 5px;padding-bottom: 5px">
-                            <h5 class="card-title mb-0">Data Pegawai</h5>
+                            <h5 class="card-title mb-0">Data Atasan</h5>
                         </div>
                         <table class="table">
                             <thead>
@@ -64,7 +64,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn btn-danger"
-                                                        onclick=" return confirm('Data pegawai akan dihapus')"
+                                                        onclick=" return confirm('Data atasan akan dihapus')"
                                                         style="padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px"><i
                                                             class="far fa-trash-alt"></i></button>
                                                 </form>

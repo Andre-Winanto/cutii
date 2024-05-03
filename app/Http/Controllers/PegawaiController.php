@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelompok;
 use App\Models\Pegawai;
 use App\Models\JatahCuti;
 use Illuminate\Http\Request;
@@ -23,7 +24,9 @@ class PegawaiController extends Controller
      */
     public function create()
     {
-        return view('dashboardCrudPegawai.create');
+        return view('dashboardCrudPegawai.create', [
+            'kelompoks' => Kelompok::all()
+        ]);
     }
 
     /**
@@ -37,9 +40,27 @@ class PegawaiController extends Controller
             'jabatan' => 'required',
             'nama_kelompok' => 'required',
             'masa_kerja' => 'required|max:3',
+            'golongan' => 'required|max:50',
+            'no_hp' => 'required|max:15',
+            'ttd' => 'required|max:5000',
             'email' => 'required|max:20|unique:pegawais',
             'password' => 'required|max:9'
         ]);
+
+        // get file : 
+        $ttd = $request->file('ttd');
+
+        // ubah nama berkas : 
+        $renameNamaFile = uniqid() . '_' . $ttd->getClientOriginalName();
+
+        // ubah nama berkas pada validated : 
+        $validated['ttd'] = $renameNamaFile;
+
+        // buat variable nama folder : 
+        $tujuan_upload = 'file';
+
+        // lalu pindahkan : 
+        $ttd->move($tujuan_upload, $renameNamaFile);
 
         Pegawai::create($validated);
 

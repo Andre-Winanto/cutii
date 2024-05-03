@@ -127,6 +127,15 @@
                     <div class="text-center pt-3 pb-3">
                         <span class="db"><img src="../assets/images/logo.png" alt="logo" /></span>
                     </div>
+
+                    @if (session()->has('loginError'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('loginError') }}
+                        </div>
+                    @endif
+
+
+
                     <!-- Form -->
                     <form class="form-horizontal mt-3" id="loginform" action="{{ url('login') }}" method="POST">
                         @csrf
