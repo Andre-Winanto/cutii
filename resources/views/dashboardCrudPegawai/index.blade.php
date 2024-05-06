@@ -25,6 +25,54 @@
 
                         <div class="card-body">
                             <a class="btn btn-primary" href="{{ url('dashboard/datapegawai/create') }}">Tambah</a>
+                            {{-- Button Trigger Modal --}}
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Cetak
+                                Laporan</button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form action="{{ url('dashboard/laporan') }}" method="POST">
+                                            @csrf
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Cetak Laporan</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <div class="">
+                                                    <label for="tanggal_awal"
+                                                        class="col-12 text-end control-label col-form-label">Tanggal
+                                                        Awal</label>
+                                                    <div class="col-12">
+                                                        <input type="date" class="form-control" name="tanggal_awal"
+                                                            id="tanggal_awal" placeholder="Tanggal Awal" required />
+                                                    </div>
+                                                </div>
+
+                                                <div class="tanggal_akhir">
+                                                    <label for="tanggal_akhir"
+                                                        class="col-12 text-end control-label col-form-label">Tanggal
+                                                        Akhir</label>
+                                                    <div class="col-12">
+                                                        <input type="date" class="form-control" name="tanggal_akhir"
+                                                            placeholder="Tanggal Akhir" required>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Cetak</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="card-body" style="padding-top: 5px;padding-bottom: 5px">

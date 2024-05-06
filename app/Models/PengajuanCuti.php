@@ -25,4 +25,9 @@ class PengajuanCuti extends Model
         // $this->hasMany(PersetujuanPertama::class);
         return $this->hasOne(PersetujuanPertama::class);
     }
+
+    public function pegawai()
+    {
+        return $this->belongsTo(Pegawai::class, 'NIP', 'NIP');
+    }
 }

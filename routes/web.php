@@ -36,6 +36,7 @@ Route::middleware('auth:user')->group(function () {
     Route::get('dashboard/surat', [SuratController::class, 'index']);
     Route::get('dashboard/surat/{data}/show', [SuratController::class, 'show']);
     Route::post('dashboard/surat', [SuratController::class, 'store']);
+    Route::post('dashboard/laporan', [PengajuanCutiController::class, 'laporan']);
 });
 
 Route::middleware('auth:pegawai')->group(function () {
@@ -73,7 +74,7 @@ Route::get('/test2', function () {
 });
 
 Route::get('/test3', function () {
-    dd(Auth::guard('atasan')->check());
+    return Auth::guard('atasan')->user()->nama;
 });
 
 Route::get('/test4', function () {

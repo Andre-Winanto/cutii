@@ -25,6 +25,17 @@
                             </div>
                         @endif
 
+                        @if (session()->has('errorJumlahCuti'))
+                            <div class="card-body" style="padding-top: 5px;padding-bottom: 5px">
+                                <div class="alert alert-danger alert-dismissible m-0" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    {{ session('errorJumlahCuti') }}
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="card-body mb-3 mt-1" style="padding-top: 5px;padding-bottom: 5px">
                             <h5 class="card-title mb-0">Data Persetujuan Kedua</h5>
                         </div>

@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
             'password' => 'password',
             'golongan' => 'Pembina, V/a',
             'nama_kelompok' => 'Balai',
-            'ttd' => 'andre.jpg',
+            'ttd' => 'ttd.png',
             'no_hp' => '082387120438'
         ]);
 
@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
             'masa_kerja' => '6',
             'email' => 'taufiq@gmail.com',
             'golongan' => 'Pembina, X/b',
-            'ttd' => 'ttd.jpg',
+            'ttd' => 'ttd_kasubag.jpg',
             'password' => 'password',
             'nama_kelompok' => 'Balai'
         ]);

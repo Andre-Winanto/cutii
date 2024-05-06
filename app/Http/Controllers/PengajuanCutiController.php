@@ -193,6 +193,8 @@ class PengajuanCutiController extends Controller
     public function cetaksurat(PengajuanCuti $data)
     {
 
+        // ambil data ketua kelompok : 
+        $dataAtasan = Atasan::where('nama_kelompok', $data->nama_kelompok)->first();
 
         // dapatkan data selisih hari : 
         $tanggal_mulai_cuti = date_create($data->tanggal_mulai_cuti);
@@ -205,8 +207,20 @@ class PengajuanCutiController extends Controller
             [
                 'pengajuanCuti' => $data,
                 'dataDiri' => Auth::guard('pegawai')->user(),
-                'jumlahCuti' => $jumlahCuti
+                'jumlahCuti' => $jumlahCuti,
+                'dataAtasan' => $dataAtasan
             ]
         );
+    }
+
+    public function laporan(Request $request)
+    {
+        $dataPengajuanCuti = PengajuanCuti::whereBetween('created_at', [$request->tanggal_awal, $request->tanggal_akhir])->orderBy('created_at', 'DESC')->get();
+
+        return view('laporan', [
+            'dataPengajuanCuti' => $dataPengajuanCuti,
+            'tanggal_awal' => $request->tanggal_awal,
+            'tanggal_akhir' => $request->tanggal_akhir
+        ]);
     }
 }

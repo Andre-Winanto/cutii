@@ -160,7 +160,7 @@
                                     <div class="col-sm-9">
                                         <input type="file" class="form-control @error('file') is-invalid @enderror"
                                             name="ttd" value="{{ old('file') }}" id="file"
-                                            placeholder="Masukan Masa Kerja" accept="image/png, image/jpeg" />
+                                            placeholder="Masukan Masa Kerja" accept="image/png, image/jpeg" required />
                                         @error('file')
                                             <div class="invalid-feedback">
                                                 {{ $message }}

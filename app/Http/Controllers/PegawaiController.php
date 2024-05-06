@@ -6,6 +6,8 @@ use App\Models\Kelompok;
 use App\Models\Pegawai;
 use App\Models\JatahCuti;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 class PegawaiController extends Controller
 {
@@ -88,7 +90,8 @@ class PegawaiController extends Controller
     {
 
         return view('dashboardCrudPegawai.edit', [
-            'pegawai' => $datapegawai
+            'pegawai' => $datapegawai,
+            'kelompoks' => Kelompok::all()
         ]);
     }
 
@@ -97,11 +100,17 @@ class PegawaiController extends Controller
      */
     public function update(Request $request, Pegawai $datapegawai)
     {
+
+        // return $request;
         $rules = [
             'nama' => 'required|max:255',
-            'jabatan' => 'required',
+            'jabatan' => 'required|max:20',
             'masa_kerja' => 'required|max:3',
-            'password' => 'required|max:9'
+            'nama_kelompok' => 'required',
+            'golongan' => 'required|max:50',
+            'no_hp' => 'required|max:15',
+            'password' => 'required|max:9',
+            'ttd' => 'max:5000'
         ];
 
         if ($request->NIP != $datapegawai->NIP) {
@@ -114,6 +123,29 @@ class PegawaiController extends Controller
 
         $validated = $request->validate($rules);
 
+        // cek apakah file dirubah : 
+        if ($request->file('ttd')) {
+            // get file : 
+            $file = $request->file('ttd');
+
+            $renameNamaFile = uniqid() . '_' . $file->getClientOriginalName();
+
+            // ubah nama ttd pada validated : 
+            $validated['ttd'] = $renameNamaFile;
+
+            // hapus ttd lama : 
+            File::delete('file/' . $datapegawai->ttd);
+
+            // pindahkan file ttd : 
+            $tujuan_upload = 'file';
+
+            $file->move($tujuan_upload, $renameNamaFile);
+        }
+
+        // hash password : 
+        $validated['password'] = Hash::make($validated['password']);
+
+
         Pegawai::where('id', $datapegawai->id)
             ->update($validated);
 
@@ -125,8 +157,11 @@ class PegawaiController extends Controller
      */
     public function destroy(Pegawai $datapegawai)
     {
+
+        File::delete('file/' . $datapegawai->ttd);
+
         Pegawai::destroy($datapegawai->id);
 
-        return redirect('/datapegawai')->with('success', 'Data pegawai berhasil dihapus!');
+        return redirect('dashboard/datapegawai')->with('success', 'Data pegawai berhasil dihapus!');
     }
 }

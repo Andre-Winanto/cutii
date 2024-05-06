@@ -27,7 +27,6 @@ class LoginController extends Controller
         if (Auth::guard('user')->attempt($credentials)) {
             return redirect('/');
         }
-
         if (Auth::guard('atasan')->attempt($credentials)) {
 
             if (Auth::guard('atasan')->user()->nama_kelompok == 'Balai') {

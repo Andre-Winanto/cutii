@@ -113,7 +113,11 @@
                 <br>
                 Ditandatangani secara elektronik oleh
                 <br>
-                ${jabatan_pengirim},
+                @if ($dataAtasan->nama_kelompok == 'Balai')
+                    Kepala Balai,
+                @else
+                    Plh. Kepala Balai,
+                @endif
                 <br>
                 Jambi,
                 {{ date('d-m-Y', strtotime($pengajuanCuti->persetujuanPertama->persetujuanKedua->surat->tanggal_disahkan)) }}
@@ -122,19 +126,19 @@
             <div class="ttd">
                 <table width="100%" border="0">
                     <tr>
-                        <td width="64%"></td>
-                        <td width="36%"> <img src="ttd balai.png"></td>
+                        <td width="50"></td>
+                        {{-- <td width="50%"> <img src="{{ asset('file/' . $dataAtasan->ttd) }}" alt=""> </td> --}}
 
                     </tr>
                 </table>
             </div>
 
             <p>
-                ${ttd_pengirim}
+                <img src="{{ asset('file/' . $dataAtasan->ttd) }}" alt="">
                 <br>
-                ${nama_pengirim}
+                {{ $dataAtasan->nama }}
                 <br>
-                NIP.${nip_pengirim}
+                NIP. {{ $dataAtasan->NIP }}
             </p>
 
 

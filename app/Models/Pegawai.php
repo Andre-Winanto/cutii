@@ -23,7 +23,6 @@ class Pegawai extends Authenticatable
         'NIP',
         'nama',
         'jabatan',
-        'tahun_awal_kerja',
         'masa_kerja',
         'nama_kelompok',
         'email',
@@ -31,7 +30,6 @@ class Pegawai extends Authenticatable
         'no_hp',
         'ttd',
         'password',
-        'nama_kelompok'
     ];
 
     /**
