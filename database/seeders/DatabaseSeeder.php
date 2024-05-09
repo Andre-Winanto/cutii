@@ -51,6 +51,12 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\JatahCuti::create([
             'NIP' => '00001',
+            'tahun' => '2023',
+            'jatah' => 12
+        ]);
+
+        \App\Models\JatahCuti::create([
+            'NIP' => '00001',
             'tahun' => '2024',
             'jatah' => 12
         ]);
