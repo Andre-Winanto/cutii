@@ -7,7 +7,6 @@ use App\Http\Controllers\AtasanController;
 use App\Http\Controllers\PersetujuanKeduaController;
 use App\Http\Controllers\PersetujuanPertamaController;
 use App\Http\Controllers\SuratController;
-use App\Models\PengajuanCuti;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,6 +36,7 @@ Route::middleware('auth:user')->group(function () {
     Route::get('dashboard/surat/{data}/show', [SuratController::class, 'show']);
     Route::post('dashboard/surat', [SuratController::class, 'store']);
     Route::post('dashboard/laporan', [PengajuanCutiController::class, 'laporan']);
+    Route::get('dashboard/cetaksuratadmin/{data}', [PengajuanCutiController::class, 'cetakSuratAdmin']);
 });
 
 Route::middleware('auth:pegawai')->group(function () {
@@ -44,6 +44,8 @@ Route::middleware('auth:pegawai')->group(function () {
     Route::get('dashboard/cetakcuti/{data}', [PengajuanCutiController::class, 'cetakcuti']);
     Route::get('dashboard/cetaksurat/{data}', [PengajuanCutiController::class, 'cetaksurat']);
 });
+
+
 
 Route::middleware('auth:atasan')->group(function () {
     Route::get('dashboard/persetujuanpertama', [PersetujuanPertamaController::class, 'index']);

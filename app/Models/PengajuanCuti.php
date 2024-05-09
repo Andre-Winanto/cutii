@@ -17,6 +17,7 @@ class PengajuanCuti extends Model
         'tanggal_mulai_cuti',
         'tanggal_akhir_cuti',
         'alamat_cuti',
+        'file',
         'status'
     ];
 

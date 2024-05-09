@@ -8,6 +8,7 @@ use App\Models\PersetujuanPertama;
 use App\Models\PersetujuanKedua;
 use App\Models\Atasan;
 use App\Models\Kelompok;
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,6 +52,7 @@ class PengajuanCutiController extends Controller
      */
     public function store(Request $request)
     {
+
         $validated = $request->validate([
             'NIP' => 'required',
             'nama_kelompok' => 'required',
@@ -58,8 +60,22 @@ class PengajuanCutiController extends Controller
             'alasan' => 'required',
             'tanggal_mulai_cuti' => 'required',
             'tanggal_akhir_cuti' => 'required',
-            'alamat_cuti' => 'required'
+            'alamat_cuti' => 'required',
+            'file' => 'max:5000'
         ]);
+
+        if ($request->file('file')) {
+            // get file : 
+            $file = $request->file('file');
+
+            $renameNamaFile = uniqid() . '_' . $file->getClientOriginalName();
+
+            $validated['file'] = $renameNamaFile;
+
+            $tujuan_upload = 'file';
+
+            $file->move($tujuan_upload, $renameNamaFile);
+        }
 
         // mengecek selisih hari
         $tanggalMulai = date_create($request->tanggal_mulai_cuti);
@@ -152,7 +168,6 @@ class PengajuanCutiController extends Controller
 
     public function cetakcuti(PengajuanCuti $data)
     {
-
         // dapatkan data ketua balai : 
         $dataKetuaBalai = Atasan::where('nama_kelompok', 'Balai')->first();
 
@@ -207,6 +222,30 @@ class PengajuanCutiController extends Controller
             [
                 'pengajuanCuti' => $data,
                 'dataDiri' => Auth::guard('pegawai')->user(),
+                'jumlahCuti' => $jumlahCuti,
+                'dataAtasan' => $dataAtasan
+            ]
+        );
+    }
+
+    public function cetakSuratAdmin(PengajuanCuti $data)
+    {
+        // ambil data ketua kelompok : 
+        $dataAtasan = Atasan::where('nama_kelompok', $data->nama_kelompok)->first();
+
+        // dapatkan data selisih hari : 
+        $tanggal_mulai_cuti = date_create($data->tanggal_mulai_cuti);
+        $tanggal_akhir_cuti = date_create($data->tanggal_akhir_cuti);
+        $jumlahCuti = date_diff($tanggal_mulai_cuti, $tanggal_akhir_cuti);
+        $jumlahCuti = $jumlahCuti->days + 1;
+
+        $dataDiri = Pegawai::where('NIP', $data->NIP)->first();
+
+        return view(
+            'dashboardPengajuanCuti.cetaksurat',
+            [
+                'pengajuanCuti' => $data,
+                'dataDiri' => $dataDiri,
                 'jumlahCuti' => $jumlahCuti,
                 'dataAtasan' => $dataAtasan
             ]

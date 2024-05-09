@@ -21,7 +21,8 @@
                             </div>
                         @endif
 
-                        <form class="form-horizontal" action="{{ url('dashboard/pengajuancuti') }}" method="POST">
+                        <form class="form-horizontal" action="{{ url('dashboard/pengajuancuti') }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <h4 class="card-title">Ajukan Cuti</h4>
@@ -105,6 +106,21 @@
                                             name="alamat_cuti" value="{{ old('alamat_cuti') }}" id="alamat_cuti"
                                             placeholder="Masukan Alamat Cuti" />
                                         @error('alamat_cuti')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="file"
+                                        class="col-sm-3 text-end control-label col-form-label">File</label>
+                                    <div class="col-sm-9">
+                                        <input type="file" class="form-control @error('file') is-invalid @enderror"
+                                            name="file" value="{{ old('file') }}" id="file"
+                                            placeholder="Masukan Masa Kerja" accept="application/pdf" />
+                                        @error('file')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('tanggal_akhir_cuti');
             $table->string('alamat_cuti')->nullable();
             $table->string('status')->default('diproses');
+            $table->string('file')->nullable();
             $table->timestamps();
 
             $table->foreign('NIP')
