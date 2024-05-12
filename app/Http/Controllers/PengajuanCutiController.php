@@ -254,12 +254,22 @@ class PengajuanCutiController extends Controller
 
     public function laporan(Request $request)
     {
+
+        return $request;
         $dataPengajuanCuti = PengajuanCuti::whereBetween('created_at', [$request->tanggal_awal, $request->tanggal_akhir])->orderBy('created_at', 'DESC')->get();
 
         return view('laporan', [
             'dataPengajuanCuti' => $dataPengajuanCuti,
             'tanggal_awal' => $request->tanggal_awal,
             'tanggal_akhir' => $request->tanggal_akhir
+        ]);
+    }
+
+    public function lihatPengajuanCuti()
+    {
+
+        return view('dashboardPengajuanCuti.lihat', [
+            'pengajuanCutis' => PengajuanCuti::all()
         ]);
     }
 }

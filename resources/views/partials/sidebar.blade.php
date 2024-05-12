@@ -23,6 +23,11 @@
                         class="mdi mdi-view-dashboard"></i><span class="hide-menu">Data
                         Surat</span></a>
             </li>
+
+            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                    href="{{ url('dashboard/lihatpengajuancuti') }}" aria-expanded="false"><i
+                        class="mdi mdi-view-dashboard"></i><span class="hide-menu">Data Pengajuan Cuti</span></a>
+            </li>
         @endif
 
         @if (Auth::guard('pegawai')->check())

@@ -37,6 +37,7 @@ Route::middleware('auth:user')->group(function () {
     Route::post('dashboard/surat', [SuratController::class, 'store']);
     Route::post('dashboard/laporan', [PengajuanCutiController::class, 'laporan']);
     Route::get('dashboard/cetaksuratadmin/{data}', [PengajuanCutiController::class, 'cetakSuratAdmin']);
+    Route::get('dashboard/lihatpengajuancuti', [PengajuanCutiController::class, 'lihatPengajuanCuti']);
 });
 
 Route::middleware('auth:pegawai')->group(function () {

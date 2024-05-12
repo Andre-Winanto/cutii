@@ -66,8 +66,8 @@
                                                         <div class="modal-content">
                                                             <form action="{{ url('dashboard/surat') }}" method="POST">
                                                                 @csrf
-                                                                <input type="hidden" name="id"
-                                                                    value="{{ $surat->id }}" required>
+                                                                <input type="text" name="id"
+                                                                    value="{{ $surat->no_surat }}" required>
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title" id="exampleModalLabel">Edit
                                                                         Surat</h5>
@@ -125,7 +125,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </td>
                                     </tr>
