@@ -28,9 +28,15 @@ class Pegawai extends Authenticatable
         'email',
         'golongan',
         'no_hp',
+        'tahun_mulai_masuk',
         'ttd',
         'password',
     ];
+
+    public function jatahCuti()
+    {
+        return $this->hasMany(JatahCuti::class, 'NIP', 'NIP');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

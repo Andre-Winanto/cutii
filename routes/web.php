@@ -4,6 +4,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PengajuanCutiController;
 use App\Http\Controllers\AtasanController;
+use App\Http\Controllers\JatahCutiController;
 use App\Http\Controllers\PersetujuanKeduaController;
 use App\Http\Controllers\PersetujuanPertamaController;
 use App\Http\Controllers\SuratController;
@@ -37,7 +38,14 @@ Route::middleware('auth:user')->group(function () {
     Route::post('dashboard/surat', [SuratController::class, 'store']);
     Route::post('dashboard/laporan', [PengajuanCutiController::class, 'laporan']);
     Route::get('dashboard/cetaksuratadmin/{data}', [PengajuanCutiController::class, 'cetakSuratAdmin']);
+    Route::get('dashboard/cetakformadmin/{data}', [PengajuanCutiController::class, 'cetakFormAdmin']);
     Route::get('dashboard/lihatpengajuancuti', [PengajuanCutiController::class, 'lihatPengajuanCuti']);
+
+    // lihat jatah cuti : 
+    Route::get('dashboard/datacuti/{data}', [PegawaiController::class, 'datacuti']);
+    Route::get('dashboard/jatah/{data}/edit', [JatahCutiController::class, 'edit']);
+    Route::post('dashboard/jatah/{data}', [JatahCutiController::class, 'update']);
+    Route::get('dashboard/tambahjatahtahunan', [JatahCutiController::class, 'tambahJatahTahunan']);
 });
 
 Route::middleware('auth:pegawai')->group(function () {

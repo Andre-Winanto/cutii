@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('jatah_cutis', function (Blueprint $table) {
+            $table->id();
             $table->string('NIP');
             $table->string('tahun');
             $table->integer('jatah')->default(12);
             $table->timestamps();
 
-            $table->primary(['NIP', 'tahun']);
+            // $table->primary(['NIP', 'tahun']);
 
             $table->foreign('NIP')
                 ->references('NIP')

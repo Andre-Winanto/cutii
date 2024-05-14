@@ -36,6 +36,7 @@ class PegawaiController extends Controller
      */
     public function store(Request $request)
     {
+
         $validated = $request->validate([
             'NIP' => 'required|max:18|min:18|unique:pegawais',
             'nama' => 'required|max:255',
@@ -45,6 +46,7 @@ class PegawaiController extends Controller
             'golongan' => 'required|max:50',
             'no_hp' => 'required|max:15',
             'ttd' => 'required|max:5000',
+            'tahun_mulai_masuk' => 'required',
             'email' => 'required|max:20|unique:pegawais',
             'password' => 'required|max:9'
         ]);
@@ -66,11 +68,24 @@ class PegawaiController extends Controller
 
         Pegawai::create($validated);
 
-        JatahCuti::create([
-            'NIP' => $validated['NIP'],
-            'tahun' => '2024',
-            'jatah' => 12
-        ]);
+        // buat jatah cuti : 
+        $get = $request->tahun_mulai_masuk;
+        $getYear = date('Y', strtotime($get));
+
+        $parsing = (int) $getYear;
+
+        $yearNow = date('Y');
+
+        while ($parsing <= $yearNow) {
+
+            JatahCuti::create([
+                'NIP' => $validated['NIP'],
+                'tahun' => "$parsing",
+                'jatah' => 12
+            ]);
+
+            $parsing++;
+        }
 
         return redirect('dashboard/datapegawai')->with('success', 'Data pegawai berhasil ditambah!');
     }
@@ -163,5 +178,14 @@ class PegawaiController extends Controller
         Pegawai::destroy($datapegawai->id);
 
         return redirect('dashboard/datapegawai')->with('success', 'Data pegawai berhasil dihapus!');
+    }
+
+    public function datacuti(Pegawai $data)
+    {
+
+        return view('dashboardCuti.jatahcuti', [
+            'pegawai' => $data,
+            'jatahCutis' => $data->jatahcuti
+        ]);
     }
 }

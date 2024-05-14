@@ -193,7 +193,7 @@
                                             Tanggal Disahkan
                                         </td>
                                         <td>
-                                            {{ $persetujuanKedua->tanggal_disahkan }}
+                                            {{ date('d-m-Y', strtotime($data->tanggal_disahkan)) }}
                                         </td>
                                     </tr>
                                     @if (!is_null($persetujuanKedua->persetujuanPertama->pengajuanCuti->file))

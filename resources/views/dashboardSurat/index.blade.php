@@ -52,7 +52,7 @@
                                             margin-right: 5px"><i
                                                         class="fas fa-eye"></i></a>
 
-                                                {{-- Button Trigger Modal --}}
+                                                {{-- Button Trigger Modal
                                                 <button class="btn btn-warning"
                                                     style="padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px;
                                                     margin-right: 5px"
@@ -125,7 +125,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </td>
                                     </tr>
                                 </tbody>

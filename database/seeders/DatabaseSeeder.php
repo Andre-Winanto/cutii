@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'andre@gmail.com',
             'password' => 'password',
             'golongan' => 'Pembina, V/a',
+            'tahun_mulai_masuk' => '2024-05-12',
             'nama_kelompok' => 'Balai',
             'ttd' => 'ttd.png',
             'no_hp' => '082387120438'

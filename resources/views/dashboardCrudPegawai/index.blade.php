@@ -23,11 +23,26 @@
                             </div>
                         @endif
 
+                        @if (session()->has('errorJatahCuti'))
+                            <div class="card-body" style="padding-top: 5px;padding-bottom: 5px">
+                                <div class="alert alert-warning alert-dismissible m-0" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    {{ session('errorJatahCuti') }}
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="card-body">
                             <a class="btn btn-primary" href="{{ url('dashboard/datapegawai/create') }}">Tambah</a>
+
                             {{-- Button Trigger Modal --}}
                             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Cetak
                                 Laporan</button>
+
+                            <a class="btn btn-success" href="{{ url('dashboard/tambahjatahtahunan') }}">Tambah Jatah
+                                Tahunan</a>
 
                             <!-- Modal -->
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -110,6 +125,12 @@
                                                     style="padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px;
                                                     margin-right: 5px"><i
                                                         class="far fa-edit"></i></a>
+
+                                                <a href="{{ url('dashboard/datacuti/' . $pegawai->id) }}"
+                                                    class="btn btn-success"
+                                                    style="padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px;
+                                                    margin-right: 5px"><i
+                                                        class="fa fa-calendar"></i></a>
 
                                                 <form action="{{ url('dashboard/datapegawai/' . $pegawai->id) }}"
                                                     method="POST">

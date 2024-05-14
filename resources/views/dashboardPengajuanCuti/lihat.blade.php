@@ -149,7 +149,7 @@
                                                         </td>
                                                         <td>
                                                             @if ($pengajuanCuti->status == 'disetujui')
-                                                                <a href="{{ url('dashboard/cetakcuti/' . $pengajuanCuti->id) }}"
+                                                                <a href="{{ url('dashboard/cetakformadmin/' . $pengajuanCuti->id) }}"
                                                                     class="btn btn-success"
                                                                     style="padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px;
                                                 margin-right: 5px"><i
@@ -158,7 +158,7 @@
                                                         </td>
                                                         <td>
                                                             @if ($pengajuanCuti->status == 'disetujui')
-                                                                <a href="{{ url('dashboard/cetaksurat/' . $pengajuanCuti->id) }}"
+                                                                <a href="{{ url('dashboard/cetaksuratadmin/' . $pengajuanCuti->id) }}"
                                                                     class="btn btn-success"
                                                                     style="padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px;
                                                 margin-right: 5px"><i

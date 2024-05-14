@@ -75,7 +75,7 @@ class PersetujuanKeduaController extends Controller
                 $tahunSekarang = intval($tahunSekarang);
                 $duaTahunLalu = $tahunSekarang - 2;
 
-                $dataJatahCuti = JatahCuti::where('NIP', $dataNIP)->whereBetween('tahun', [$duaTahunLalu, $tahunSekarang])->get();
+                $dataJatahCuti = JatahCuti::where('NIP', $dataNIP)->whereBetween('tahun', [$duaTahunLalu, $tahunSekarang])->orderByDesc('tahun')->get();
 
                 // looping dataJatahCuti untuk mengurangi dengan jumlah cuti :
                 foreach ($dataJatahCuti as $dataJatah) {

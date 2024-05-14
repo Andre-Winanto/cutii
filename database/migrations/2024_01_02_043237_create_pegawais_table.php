@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('golongan');
             $table->string('email')->unique();
             $table->string('no_hp');
+            $table->date('tahun_mulai_masuk');
             $table->string('ttd');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

@@ -252,10 +252,48 @@ class PengajuanCutiController extends Controller
         );
     }
 
+    public function cetakFormAdmin(PengajuanCuti $data)
+    {
+        // dapatkan data ketua balai : 
+        $dataKetuaBalai = Atasan::where('nama_kelompok', 'Balai')->first();
+
+        // dapatkan data kelompok dari nama kelompok : 
+        $dataKelompok = Kelompok::where('nama_kelompok', $data->nama_kelompok)->first();
+        $dataKetuaKelompok = $dataKelompok->dataKetua;
+
+        // data persetujuan pertama : 
+        $dataPersetujuanPertama = $data->persetujuanPertama;
+
+        // data persetujuan kedua : 
+        $dataPersetujuanKedua = $dataPersetujuanPertama->persetujuanKedua;
+
+        // ambil data jatah cuti berdasarkan 3 tahun yang lalu :
+        $tahunSekarang = date('Y');
+        $tahunSekarang = intval($tahunSekarang);
+        $duaTahunLalu = $tahunSekarang - 2;
+
+        // dapatkan data selisih hari : 
+        $tanggal_mulai_cuti = date_create($data->tanggal_mulai_cuti);
+        $tanggal_akhir_cuti = date_create($data->tanggal_akhir_cuti);
+        $jumlahCuti = date_diff($tanggal_mulai_cuti, $tanggal_akhir_cuti);
+        $jumlahCuti = $jumlahCuti->days + 1;
+
+        return view('dashboardPengajuanCuti.lihatFormAdmin', [
+            'pengajuanCuti' => $data,
+            'jatahCutiDuaTahunLalu' => JatahCuti::where('NIP', $data->NIP)->where('tahun', ($duaTahunLalu))->first(),
+            'jatahCutiSatuTahunLalu' => JatahCuti::where('NIP', $data->NIP)->where('tahun', ($duaTahunLalu + 1))->first(),
+            'jatahCutiTahunSekarang' => JatahCuti::where('NIP', $data->NIP)->where('tahun', $tahunSekarang)->first(),
+            'dataKetuaKelompok' => $dataKetuaKelompok,
+            'dataPersetujuanPertama' => $dataPersetujuanPertama,
+            'dataPersetujuanKedua' => $dataPersetujuanKedua,
+            'dataKetuaBalai' => $dataKetuaBalai,
+            'jumlahCuti' => $jumlahCuti,
+            'pegawai' => $data->pegawai
+        ]);
+    }
+
     public function laporan(Request $request)
     {
-
-        return $request;
         $dataPengajuanCuti = PengajuanCuti::whereBetween('created_at', [$request->tanggal_awal, $request->tanggal_akhir])->orderBy('created_at', 'DESC')->get();
 
         return view('laporan', [

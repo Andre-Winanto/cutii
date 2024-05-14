@@ -46,16 +46,16 @@
 
                 <tr>
                     <td width="10%">Nama</td>
-                    <td width="60%">{{ Auth::guard('pegawai')->user()->nama }}</td>
+                    <td width="60%">{{ $pegawai->nama }}</td>
                     <td width="10%">NIP</td>
-                    <td width="20%">{{ Auth::guard('pegawai')->user()->NIP }}</td>
+                    <td width="20%">{{ $pegawai->NIP }}</td>
                 </tr>
 
                 <tr>
                     <td width="10%">Jabatan</td>
-                    <td width="60%">{{ Auth::guard('pegawai')->user()->jabatan }}</td>
+                    <td width="60%">{{ $pegawai->jabatan }}</td>
                     <td width="10%">Masa Kerja</td>
-                    <td width="20%">{{ Auth::guard('pegawai')->user()->masa_kerja }} Tahun</td>
+                    <td width="20%">{{ $pegawai->masa_kerja }} Tahun</td>
                 </tr>
 
                 <tr>
@@ -226,7 +226,7 @@
 
                 <tr>
                     <td width="38%" rowspan="3">{{ $pengajuanCuti->alamat_cuti }}</td>
-                    <td width="24%" rowspan="3">{{ Auth::guard('pegawai')->user()->no_hp }}</td>
+                    <td width="24%" rowspan="3">{{ $pegawai->no_hp }}</td>
                     <td rowspan="1" height="100px"><img src="{{ asset('file/ttd_kasubag.jpg') }} "
                             style="width: 100%; height: 100%;" alt="">
                     </td>
@@ -236,7 +236,7 @@
                 </tr>
 
                 <tr>
-                    <td>({{ Auth::guard('pegawai')->user()->NIP }})</td>
+                    <td>({{ $pegawai->NIP }})</td>
                 </tr>
 
 

@@ -33,6 +33,7 @@ class PersetujuanPertamaController extends Controller
 
     public function persetujuan(PersetujuanPertama $data, Request $request)
     {
+
         $validated = $request->validate([
             'status' => 'required',
             'keterangan' => ''

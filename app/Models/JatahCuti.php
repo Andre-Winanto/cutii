@@ -14,4 +14,9 @@ class JatahCuti extends Model
         'tahun',
         'jatah'
     ];
+
+    public function pegawai()
+    {
+        return $this->belongsTo(Pegawai::class, 'NIP', 'NIP');
+    }
 }

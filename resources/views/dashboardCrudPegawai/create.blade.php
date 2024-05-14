@@ -95,6 +95,22 @@
                                 </div>
 
                                 <div class="form-group row">
+                                    <label for="tahun-mulai-masuk"
+                                        class="col-sm-3 text-end control-label col-form-label">Tahun Mulai Masuk</label>
+                                    <div class="col-sm-9">
+                                        <input type="date"
+                                            class="form-control @error('tahun_mulai_masuk') is-invalid @enderror"
+                                            name="tahun_mulai_masuk" value="{{ old('tahun_mulai_masuk') }}"
+                                            id="tahun_mulai_masuk" placeholder="Masukan Tahun Mulai Masuk" />
+                                        @error('tahun_mulai_masuk ')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
                                     <label for="golongan"
                                         class="col-sm-3 text-end control-label col-form-label">Golongan</label>
                                     <div class="col-sm-9">
