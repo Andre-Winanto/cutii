@@ -13,29 +13,21 @@
     <div class="container">
         <div class="header">
             <div class="logo">
-                <img src="logo.png" alt="Logo Perusahaan">
-            </div>
-            <div class="company-info">
-                <h1>KEMENTRIAN PERTANIAN</h1>
-                <h1>BADAN STANDARDISASI INSTUMEN PERTANIAN</h1>
-                <h2>BALA PENERAPAN STANDAR INSTRUMEN PERTANIAN JAMBI</h2>
-                <p>JL SAMARINDA NO 11 PAAL LIMA KOTA BARU KOTAK POS 118 - JAMBI 36128n</p>
-                <p>JL RAYA JAMBI - TEMPINO KM.16 DESA PONDOK MEJA - JAMBI</p>
-                <p>TELEPON :(0741) 40174, FAKSMILI : (0741) 40413</p>
-                <p>WEBSITE:jambi.bsip.pertanian.go.id E-MAIL:bpsip.jambi@pertanian.go.id</p>
+                <img src="{{ asset('assets/images/KOP.png') }}" alt="Logo Perusahaan">
             </div>
         </div>
 
-        <hr color="#1065c0" size="5" width="90%" align="center" noshade> <!-- Garis horizontal di sini -->
-        <hr color="#2277aa" size="2" width="90%" align="center" noshade> <!-- Garis horizontal di sini -->
-
+        {{-- <hr color="#1065c0" size="5" width="90%" align="center" noshade> <!-- Garis horizontal di sini -->
+        <hr color="#2277aa" size="2" width="90%" align="center" noshade> <!-- Garis horizontal di sini --> --}}
+        
+        <br>
         <div class="pertama">
-            <h1>SURAT IZIN CUTI TAHUNAN</h1>
+            <h1>SURAT {{  $pengajuanCuti->jenis_cuti }}</h1>
             <p>Nomor : {{ $pengajuanCuti->persetujuanPertama->persetujuanKedua->surat->no_surat }}</p>
         </div>
 
         <div class="content">
-            <h1> Di berikan izn cuti tahunan kepada Pegawai Negeri Sipil:</h1>
+            <h1> Di berikan izin {{  $pengajuanCuti->jenis_cuti }} kepada Pegawai Negeri Sipil:</h1>
 
             <div class="nama">
                 <table width="100%" border="0">
@@ -76,7 +68,7 @@
                         <td></td>
                         <td>Satuan Organisasi</td>
                         <td>:</td>
-                        <td>Balai Penerapan Standar Instrmen Pertanian jambi</td>
+                        <td>Balai Penerapan Standar Instrumen Pertanian jambi</td>
                     </tr>
                 </table>
             </div>
@@ -84,11 +76,11 @@
             <h1>
                 <tr>Terhitung Mulai Tanggal</tr>
                 <tr>
-                    {{ date('d-m-Y', strtotime($pengajuanCuti->tanggal_mulai_cuti)) }}
+                    {{ \Carbon\Carbon::parse($pengajuanCuti->tanggal_mulai_cuti) ->translatedFormat('d F Y') }}
                 </tr>
                 <tr>s.d </tr>
                 <tr>
-                    {{ date('d-m-Y', strtotime($pengajuanCuti->tanggal_akhir_cuti)) }}
+                    {{ \Carbon\Carbon::parse($pengajuanCuti->tanggal_akhir_cuti) ->translatedFormat('d F Y') }}
                 </tr>
                 <tr> ( </tr>
                 <tr>{{ $jumlahCuti }}</tr>
@@ -97,51 +89,49 @@
             </h1>
 
 
-            <h2> a. Sebelum menjalankan cuti tahunan, wajib menyerahkan pekerjaan kepada atasan
+            <h2> a. Sebelum menjalankan cuti, wajib menyerahkan pekerjaan kepada atasan
                 langsungnya atau pejabat yang ditunjuk.</h2>
 
-            <h2> b. Setelah menjalankan cuti tahunan, wajib melaporkan diri kepada
+            <h2> b. Setelah menjalankan cuti, wajib melaporkan diri kepada
                 atasan langsungnya dan bekerja kembali sebagaimana biasa.</h2>
 
-            <h1> Demikian surat izin cuti tahunan ini dibuat untuk dapat digunakan sebagaimana mestinya.</h1>
+            <h1> Demikian surat izin cuti ini dibuat untuk dapat digunakan sebagaimana mestinya.</h1>
 
 
             <p>
                 Jambi,
-                {{ date('d-m-Y', strtotime($pengajuanCuti->persetujuanPertama->persetujuanKedua->surat->tanggal_disahkan)) }}
-                <br>
-                <br>
-                Ditandatangani secara elektronik oleh
-                <br>
-                @if ($dataAtasan->nama_kelompok == 'Balai')
+              
+                    {{ \Carbon\Carbon::parse($pengajuanCuti->persetujuanPertama->persetujuanKedua->surat->tanggal_disahkan)->translatedFormat('d F Y') }}
+                
+               <br>
+                {{-- @if ($dataAtasan->nama_kelompok == 'Balai')
                     Kepala Balai,
                 @else
                     Plh. Kepala Balai,
-                @endif
-                <br>
-                Jambi,
-                {{ date('d-m-Y', strtotime($pengajuanCuti->persetujuanPertama->persetujuanKedua->surat->tanggal_disahkan)) }}
-            </p>
-
+                @endif --}}
+                <span style="display: block; margin-top: -8px;"></span>
+                {{ $pengajuanCuti->persetujuanPertama->persetujuanKedua->surat->penanda_tangan }}
+              
             <div class="ttd">
                 <table width="100%" border="0">
                     <tr>
                         <td width="50"></td>
-                        <td width="50%"> <img src="{{ asset('file/' . $dataAtasan->ttd) }}" alt=""> </td>
+                        <td width="50%"> <img src="    " alt=""> </td>
+                        {{-- {{ asset('file/' . $dataAtasan->ttd) }} --}}
 
                     </tr>
                 </table>
             </div>
 
+            
             <p>
                 {{-- <img src="{{ asset('file/' . $dataAtasan->ttd) }}" alt=""> --}}
                 <br>
-                {{ $dataAtasan->nama }}
-                <br>
-                NIP. {{ $dataAtasan->NIP }}
+                <strong>{{ $pengajuanCuti->persetujuanPertama->persetujuanKedua->surat->nama }}</strong>
+                <span style="display: block; margin-top: -8px;"></span>
+                NIP. {{ $pengajuanCuti->persetujuanPertama->persetujuanKedua->surat->nip }} 
+                {{--  {{ $dataAtasan->NIP }} --}}
             </p>
-
-
 
         </div>
     </div>

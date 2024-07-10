@@ -26,9 +26,11 @@
             </div>
         </div>
 
-        <hr color="#1065c0" size="5" width="90%" align="center" noshade> <!-- Garis horizontal di sini -->
-        <hr color="#2277aa" size="2" width="90%" align="center" noshade> <!-- Garis horizontal di sini -->
-
+        {{-- <hr color="#1065c0" size="5" width="90%" align="center" noshade> <!-- Garis horizontal di sini -->
+        <hr color="#2277aa" size="2" width="90%" align="center" noshade> <!-- Garis horizontal di sini --> --}}
+        <hr class="line1"> <!-- Garis horizontal di sini -->
+        <hr class="line2"> <!-- Garis horizontal di sini -->
+        <br>
         <div class="pertama">
             <h1>SURAT IZIN CUTI TAHUNAN</h1>
             <p>Nomor : {{ $pengajuanCuti->persetujuanPertama->persetujuanKedua->surat->no_surat }}</p>
@@ -136,12 +138,12 @@
             <p>
                 {{-- <img src="{{ asset('file/' . $dataAtasan->ttd) }}" alt=""> --}}
                 <br>
-                {{ $dataAtasan->nama }}
+                <strong>{{ $dataAtasan->nama }}</strong>
                 <br>
                 NIP. {{ $dataAtasan->NIP }}
             </p>
 
-
+           
 
         </div>
     </div>

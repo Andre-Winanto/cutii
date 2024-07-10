@@ -22,10 +22,12 @@ class PengajuanCutiController extends Controller
 
         // return PengajuanCuti::where('NIP', Auth::guard('pegawai')->user()->NIP)->get();
         return view('dashboardPengajuanCuti.index', [
-            'jatahCutis' => JatahCuti::where('NIP', Auth::guard('pegawai')->user()->NIP)->get(),
-            'pengajuanCutis' => PengajuanCuti::where('NIP', Auth::guard('pegawai')->user()->NIP)->get()
+            'jatahCutis' => JatahCuti::where('NIP', Auth::guard('pegawai')->user()->NIP)->orderByDesc('created_at')->get(),
+            'pengajuanCutis' => PengajuanCuti::where('NIP', Auth::guard('pegawai')->user()->NIP)->orderByDesc('created_at')->get()
         ]);
     }
+
+  
 
     /**
      * Show the form for creating a new resource.
@@ -36,7 +38,7 @@ class PengajuanCutiController extends Controller
         $jenisCuti = [
             'cuti tahunan',
             'cuti sakit',
-            'cuti karena alasan penting',
+            'cuti alasan penting',
             'cuti besar',
             'cuti melahirkan',
             'cuti diluar tanggungan negara',
@@ -56,7 +58,7 @@ class PengajuanCutiController extends Controller
         $validated = $request->validate([
             'NIP' => 'required',
             'nama_kelompok' => 'required',
-            'jenis_cuti' => 'required',
+            'jenis_cuti' => 'required|max:50',
             'alasan' => 'required',
             'tanggal_mulai_cuti' => 'required',
             'tanggal_akhir_cuti' => 'required',
@@ -95,20 +97,24 @@ class PengajuanCutiController extends Controller
         foreach ($dataJatahCuti as $sisa) {
             $sisaLiburan += $sisa->jatah;
         }
-
+        // filter Jenis Cuti
+        if ($request->jenis_cuti == 'cuti tahunan'){
         // bandingkan hari dan buat eror
         if ($jumlahCuti > $sisaLiburan) {
             return back()->with('errorJumlahCuti', 'Jumlah Cuti Melewati Batas');
         }
+    }
 
         // tambah data pengajuan cuti :
         $getDataPengajuanCuti = PengajuanCuti::create($validated);
+
+
 
         // tambah data persetujuan pertama :
         // cek apakah kelompok balai : 
         // jika balai maka set $dataPersetujuanPertama 'status' == setuju, dan keterangan diterima : 
 
-        if ($validated['nama_kelompok'] == 'Balai') {
+        if ($validated['nama_kelompok'] == 'KTU') {
 
             $dataPersetujuanPertama = [
                 'pengajuan_cuti_id' => $getDataPengajuanCuti->id,
@@ -137,10 +143,18 @@ class PengajuanCutiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(PengajuanCuti $pengajuanCuti)
-    {
-        //
-    }
+    public function show(pengajuanCuti $pengajuancuti)
+{
+    // $pengajuancuti = PengajuanCuti::findOrFail($id);
+    $getDataPegawai = Pegawai::where('NIP', $pengajuancuti->NIP)->first();
+
+    return view('dashboardPengajuanCuti.show', [
+        'pengajuanCuti' => $pengajuancuti,
+        'getDataPegawai' => $getDataPegawai,
+        'persetujuanPertama'=>$pengajuancuti->persetujuanPertama,
+        'persetujuanKedua'=>$pengajuancuti->persetujuanPertama->persetujuanKedua
+    ]);
+}
 
     /**
      * Show the form for editing the specified resource.
@@ -169,7 +183,7 @@ class PengajuanCutiController extends Controller
     public function cetakcuti(PengajuanCuti $data)
     {
         // dapatkan data ketua balai : 
-        $dataKetuaBalai = Atasan::where('nama_kelompok', 'Balai')->first();
+        $dataKetuaBalai = Atasan::where('nama_kelompok', 'KTU')->first();
 
         // dapatkan data kelompok dari nama kelompok : 
         $dataKelompok = Kelompok::where('nama_kelompok', $data->nama_kelompok)->first();
@@ -255,7 +269,7 @@ class PengajuanCutiController extends Controller
     public function cetakFormAdmin(PengajuanCuti $data)
     {
         // dapatkan data ketua balai : 
-        $dataKetuaBalai = Atasan::where('nama_kelompok', 'Balai')->first();
+        $dataKetuaBalai = Atasan::where('nama_kelompok', 'KTU')->first();
 
         // dapatkan data kelompok dari nama kelompok : 
         $dataKelompok = Kelompok::where('nama_kelompok', $data->nama_kelompok)->first();
@@ -275,14 +289,13 @@ class PengajuanCutiController extends Controller
         // dapatkan data selisih hari : 
         $tanggal_mulai_cuti = date_create($data->tanggal_mulai_cuti);
         $tanggal_akhir_cuti = date_create($data->tanggal_akhir_cuti);
-        $jumlahCuti = date_diff($tanggal_mulai_cuti, $tanggal_akhir_cuti);
-        $jumlahCuti = $jumlahCuti->days + 1;
+        $jumlahCuti = date_diff($tanggal_mulai_cuti, $tanggal_akhir_cuti)->days + 1;
 
         return view('dashboardPengajuanCuti.lihatFormAdmin', [
             'pengajuanCuti' => $data,
-            'jatahCutiDuaTahunLalu' => JatahCuti::where('NIP', $data->NIP)->where('tahun', ($duaTahunLalu))->first(),
-            'jatahCutiSatuTahunLalu' => JatahCuti::where('NIP', $data->NIP)->where('tahun', ($duaTahunLalu + 1))->first(),
-            'jatahCutiTahunSekarang' => JatahCuti::where('NIP', $data->NIP)->where('tahun', $tahunSekarang)->first(),
+            'jatahCutiDuaTahunLalu' => JatahCuti::where('NIP', $data->NIP)->where('tahun', $duaTahunLalu)->orderByDesc('created_at')->first(),
+            'jatahCutiSatuTahunLalu' => JatahCuti::where('NIP', $data->NIP)->where('tahun', ($duaTahunLalu + 1))->orderByDesc('created_at')->first(),
+            'jatahCutiTahunSekarang' => JatahCuti::where('NIP', $data->NIP)->where('tahun', $tahunSekarang)->orderByDesc('created_at')->first(),
             'dataKetuaKelompok' => $dataKetuaKelompok,
             'dataPersetujuanPertama' => $dataPersetujuanPertama,
             'dataPersetujuanKedua' => $dataPersetujuanKedua,
@@ -290,7 +303,10 @@ class PengajuanCutiController extends Controller
             'jumlahCuti' => $jumlahCuti,
             'pegawai' => $data->pegawai
         ]);
+    
     }
+
+    
 
     public function laporan(Request $request)
     {
@@ -310,4 +326,15 @@ class PengajuanCutiController extends Controller
             'pengajuanCutis' => PengajuanCuti::all()
         ]);
     }
+
+    
+    
+    
 }
+
+
+
+
+
+
+

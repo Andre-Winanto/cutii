@@ -14,14 +14,14 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        \App\Models\User::factory()->create([
+        \App\Models\Admin::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'password' => 'password'
         ]);
 
         \App\Models\Kelompok::create([
-            'nama_kelompok' => 'Balai'
+            'nama_kelompok' => 'KTU'
         ]);
 
         \App\Models\Pegawai::create([
@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
             'password' => 'password',
             'golongan' => 'Pembina, V/a',
             'tahun_mulai_masuk' => '2024-05-12',
-            'nama_kelompok' => 'Balai',
+            'nama_kelompok' => 'KTU',
             'ttd' => 'ttd.png',
             'no_hp' => '082387120438'
         ]);
@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
             'golongan' => 'Pembina, X/b',
             'ttd' => 'ttd_kasubag.jpg',
             'password' => 'password',
-            'nama_kelompok' => 'Balai'
+            'nama_kelompok' => 'KTU'
         ]);
 
         \App\Models\JatahCuti::create([

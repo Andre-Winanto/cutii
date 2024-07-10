@@ -5,7 +5,7 @@
                 aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a>
         </li> --}}
 
-        @if (Auth::guard('user')->check())
+        @if (Auth::guard('admin')->check())
             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                     href="{{ url('dashboard/datapegawai') }}" aria-expanded="false"><i
                         class="mdi mdi-view-dashboard"></i><span class="hide-menu">Data
@@ -35,11 +35,15 @@
                     href="{{ url('dashboard/pengajuancuti') }}" aria-expanded="false"><i
                         class="mdi mdi-view-dashboard"></i><span class="hide-menu">Ajukan Cuti</span></a>
             </li>
+            {{-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                href="{{ url('dashboard/riwayatcuti') }}" aria-expanded="false"><i
+                    class="mdi mdi-view-dashboard"></i><span class="hide-menu">Riwayat Pengajuan Cuti</span></a>
+        </li> --}}
         @endif
 
         @if (Auth::guard('atasan')->check())
 
-            @if (Auth::guard('atasan')->user()->nama_kelompok == 'Balai')
+            @if (Auth::guard('atasan')->user()->nama_kelompok == 'KTU')
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                         href="{{ url('dahsboard/persetujuankedua') }}" aria-expanded="false"><i
                             class="mdi mdi-view-dashboard"></i><span class="hide-menu">Pengajuan Cuti</span></a>
@@ -47,8 +51,13 @@
             @else
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                         href="{{ url('dashboard/persetujuanpertama') }}" aria-expanded="false"><i
-                            class="mdi mdi-view-dashboard"></i><span class="hide-menu">Pengajuan Cuti</span></a>
+                            class="mdi mdi-view-dashboard"></i><span class="hide-menu">Pengajuan Cuti </span></a>
                 </li>
+
+                {{-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                        href="{{ url('dashboard/persetujuanpertama2') }}" aria-expanded="false"><i
+                            class="mdi mdi-view-dashboard"></i><span class="hide-menu">Pengajuan sudah </span></a>
+                </li> --}}
             @endif
         @endif
     </ul>

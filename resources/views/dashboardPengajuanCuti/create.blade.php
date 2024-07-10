@@ -115,7 +115,7 @@
 
                                 <div class="form-group row">
                                     <label for="file"
-                                        class="col-sm-3 text-end control-label col-form-label">File</label>
+                                        class="col-sm-3 text-end control-label col-form-label">Lampiran Pendukung </label>
                                     <div class="col-sm-9">
                                         <input type="file" class="form-control @error('file') is-invalid @enderror"
                                             name="file" value="{{ old('file') }}" id="file"
@@ -130,10 +130,10 @@
 
                                 <div class="border-top">
                                     <div class="card-body">
-                                        <a class="btn btn-primary" style="margin-right: 10px"
-                                            href="{{ url('dashboard/pengajuancuti') }}">Kembali</a>
-                                        <button type="submit" class="btn btn-primary">
-                                            Simpan
+                                        <a class="btn btn-danger" style="margin-right: 10px"
+                                            href="{{ url('dashboard/pengajuancuti') }}">Batalkan</a>
+                                        <button type="submit" class="btn btn-success">
+                                            Ajukan
                                         </button>
                                     </div>
                                 </div>

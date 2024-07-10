@@ -8,22 +8,22 @@ use App\Models\JatahCuti;
 use App\Models\PengajuanCuti;
 use App\Models\Pegawai;
 use App\Models\Surat;
-
-use function PHPUnit\Framework\isNull;
+use Illuminate\Support\Facades\Auth;
 
 class PersetujuanKeduaController extends Controller
 {
     public function index()
     {
+        // Mengambil semua data PersetujuanKedua dan mengurutkannya berdasarkan created_at secara descending
+        $persetujuanKeduas = PersetujuanKedua::orderByDesc('created_at')->get();
 
         return view('dashboardPersetujuanKedua.index', [
-            'persetujuanKeduas' => PersetujuanKedua::all()
+            'persetujuanKeduas' => $persetujuanKeduas
         ]);
     }
 
     public function show(PersetujuanKedua $data)
     {
-
         $getDataPegawai = Pegawai::where('NIP', $data->persetujuanPertama->pengajuanCuti->NIP)->first();
 
         return view('dashboardPersetujuanKedua.show', [
@@ -39,10 +39,9 @@ class PersetujuanKeduaController extends Controller
             'keterangan' => ''
         ]);
 
-        // jika disetujui : 
+        // jika disetujui
         if ($validated['status'] == 'setuju') {
-
-            // ::: cuti tahunan : 
+            // ::: cuti tahunan
             if ($data->persetujuanPertama->pengajuanCuti->jenis_cuti == 'cuti tahunan') {
                 // mengecek selisih hari
                 $tanggalMulai = date_create($data->persetujuanPertama->pengajuanCuti->tanggal_mulai_cuti);
@@ -51,9 +50,9 @@ class PersetujuanKeduaController extends Controller
                 $jumlahCuti = date_diff($tanggalMulai, $tanggalAkhir);
                 $jumlahCuti = $jumlahCuti->days + 1;
 
-                $dataNIP = $data->persetujuanPertama->PengajuanCuti->NIP;
+                $dataNIP = $data->persetujuanPertama->pengajuanCuti->NIP;
 
-                // ambil data jatah tahun : 
+                // ambil data jatah tahun
                 $SisaCuti = JatahCuti::where('NIP', $dataNIP)->get();
 
                 $sisaLiburan = 0;
@@ -61,7 +60,7 @@ class PersetujuanKeduaController extends Controller
                     $sisaLiburan += $sisa->jatah;
                 }
 
-                // jika jatah cuti kurang dari permohonan cuti, maka tolak :
+                // jika jatah cuti kurang dari permohonan cuti, maka tolak
                 if ($jumlahCuti > $sisaLiburan) {
                     PengajuanCuti::where('id', $data->persetujuanPertama->pengajuanCuti->id)
                         ->update(['status' => 'tolak']);
@@ -70,14 +69,14 @@ class PersetujuanKeduaController extends Controller
                     return back()->with('errorJumlahCuti', 'Jumlah Cuti Melewati Batas');
                 }
 
-                // ambil data jatah cuti berdasarkan 3 tahun yang lalu :
+                // ambil data jatah cuti berdasarkan 3 tahun yang lalu
                 $tahunSekarang = date('Y');
                 $tahunSekarang = intval($tahunSekarang);
                 $duaTahunLalu = $tahunSekarang - 2;
 
                 $dataJatahCuti = JatahCuti::where('NIP', $dataNIP)->whereBetween('tahun', [$duaTahunLalu, $tahunSekarang])->orderByDesc('tahun')->get();
 
-                // looping dataJatahCuti untuk mengurangi dengan jumlah cuti :
+                // looping dataJatahCuti untuk mengurangi dengan jumlah cuti
                 foreach ($dataJatahCuti as $dataJatah) {
                     // kurangi jatah cuti
                     if ($jumlahCuti != 0) {
@@ -86,9 +85,8 @@ class PersetujuanKeduaController extends Controller
                                 ->where('tahun', $dataJatah->tahun)
                                 ->update(['jatah' => 0]);
                             $jumlahCuti = $jumlahCuti - $dataJatah->jatah;
-                        }
-                        // jika tidak habis maka :
-                        else {
+                        } else {
+                            // jika tidak habis
                             $sisaa = $dataJatah->jatah - $jumlahCuti;
                             JatahCuti::where('NIP', $dataNIP)
                                 ->where('tahun', $dataJatah->tahun)
@@ -102,7 +100,7 @@ class PersetujuanKeduaController extends Controller
             PengajuanCuti::where('id', $data->persetujuanPertama->pengajuanCuti->id)
                 ->update(['status' => 'disetujui']);
 
-            // buat surat : 
+            // buat surat
             Surat::create(['persetujuan_kedua_id' => $data->id]);
         } else {
             PengajuanCuti::where('id', $data->persetujuanPertama->pengajuanCuti->id)
@@ -112,6 +110,6 @@ class PersetujuanKeduaController extends Controller
         PersetujuanKedua::where('id', $data->id)
             ->update($validated);
 
-        return back()->with('success', 'Data perstujuan berhasil di ubah!');
+        return back()->with('success', 'Data persetujuan berhasil diubah!');
     }
 }

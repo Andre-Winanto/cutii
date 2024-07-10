@@ -16,8 +16,9 @@
                             <h5 class="card-title mb-0">Data Pengajuan Cuti </h5>
                             <br>
                             {{-- Button Trigger Modal --}}
-                            <button class="btn btn-primary mt-1" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit
-                                Nomor</button>
+                            <button class="btn btn-primary mt-1" data-bs-toggle="modal" data-bs-target="#exampleModal">Buat Surat</button>
+
+                          
 
                             {{-- modal --}}
                             {{-- <button class="btn btn-warning"
@@ -33,7 +34,7 @@
                                             @csrf
                                             <input type="hidden" name="id" value="{{ $data->id }}" required>
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Edit
+                                                <h5 class="modal-title" id="exampleModalLabel">
                                                     Surat</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close">
@@ -68,6 +69,55 @@
                                                             name="tanggal_disahkan" value="{{ old('tanggal_disahkan') }}"
                                                             id="tanggal_disahkan" placeholder="Tanggal Disahkan" required />
                                                         @error('tanggal_disahkan')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                                <div class="">
+                                                    <label for="nama"
+                                                        class="col-12 text-end control-label col-form-label">Nama Penanda Tangan
+                                                        </label>
+                                                    <div class="col-12">
+                                                        <input type="text"
+                                                            class="form-control @error('nama') is-invalid @enderror"
+                                                            name="nama" value="{{ old('nama') }}" id="nama"
+                                                            placeholder="Masukan nama" required />
+                                                        @error('nama')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                                <div class="">
+                                                    <label for="nip"
+                                                        class="col-12 text-end control-label col-form-label">NIP</label>
+                                                    <div class="col-12">
+                                                        <input type="text"
+                                                            class="form-control @error('nip') is-invalid @enderror"
+                                                            name="nip" value="{{ old('nip') }}" id="nip"
+                                                            placeholder="NIP" required />
+                                                        @error('nama')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                                <div class="">
+                                                    <label for="penanda_tangan" class="col-12 text-end control-label col-form-label">Penanda Tangan</label>
+                                                    <div class="col-12">
+                                                        <select class="form-control @error('penanda_tangan') is-invalid @enderror" name="penanda_tangan" id="penanda_tangan" required>
+                                                            <option value="">Pilih</option>
+                                                            <option value="Kepala Balai" {{ old('penanda_tangan') == 'Kepala Balai' ? 'selected' : '' }}>Kepala Balai</option>
+                                                            <option value="plh.Balai" {{ old('penanda_tangan') == 'plh.Balai' ? 'selected' : '' }}>plh.Balai</option>
+                                                        </select>
+                                                        @error('penanda_tangan')
                                                             <div class="invalid-feedback">
                                                                 {{ $message }}
                                                             </div>

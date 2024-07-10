@@ -38,7 +38,7 @@ class PegawaiController extends Controller
     {
 
         $validated = $request->validate([
-            'NIP' => 'required|max:18|min:18|unique:pegawais',
+            'NIP' => 'required|max:18|min:1|unique:pegawais',
             'nama' => 'required|max:255',
             'jabatan' => 'required',
             'nama_kelompok' => 'required',
@@ -124,12 +124,12 @@ class PegawaiController extends Controller
             'nama_kelompok' => 'required',
             'golongan' => 'required|max:50',
             'no_hp' => 'required|max:15',
-            'password' => 'required|max:9',
+            'password' => 'required|max:20',
             'ttd' => 'max:5000'
         ];
 
         if ($request->NIP != $datapegawai->NIP) {
-            $rules['NIP'] = 'required|max:18|min:18|unique:pegawais';
+            $rules['NIP'] = 'required|max:18|min:1|unique:pegawais';
         }
 
         if ($request->email != $datapegawai->email) {

@@ -33,8 +33,14 @@ class SuratController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'no_surat' => 'required|max:15',
-            'tanggal_disahkan' => 'required'
+            'no_surat' => 'required|max:100',
+            'tanggal_disahkan' => 'required',
+            'nama' => 'required',
+            'nip' => 'required',
+            'penanda_tangan' => 'required',
+
+
+            
         ]);
 
         Surat::where('id', $request->id)->update($validated);
@@ -80,3 +86,4 @@ class SuratController extends Controller
         //
     }
 }
+

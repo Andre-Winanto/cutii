@@ -56,7 +56,7 @@ class JatahCutiController extends Controller
     public function update(Request $request, JatahCuti $data)
     {
         $validated = $request->validate([
-            'jatah' => 'required|numeric|max:12|min:0'
+            'jatah' => 'required|numeric|max:90|min:0'
         ]);
 
         JatahCuti::where('id', $data->id)->update($validated);

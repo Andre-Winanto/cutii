@@ -23,39 +23,38 @@
                             </div>
                         @endif
 
-
-
                         <div class="card-body" style="padding-top: 5px;padding-bottom: 5px">
-                            <h5 class="card-title mb-0">Cuti Pegawi : NIP = {{ $pegawai->NIP }}</h5>
+                            <h5 class="card-title mb-0">Jatah Cuti Atas Nama  = {{ $pegawai->nama }}</h5>
                         </div>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">No </th>
-                                    <th scope="col">Tahun </th>
-                                    <th scope="col">Jatah</th>
-                                    <th scope="col">Aksi</th>
-                                </tr>
-                            </thead>
-                            @foreach ($jatahCutis as $data)
-                                <tbody>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead style="background-color: #9be65d;">
                                     <tr>
-                                        <th scope="row">{{ $loop->iteration }}</th>
-                                        <td>{{ $data->tahun }}</td>
-                                        <td>{{ $data->jatah }}</td>
-                                        <td>
-                                            <div class="d-flex gap-4">
-                                                <a class="btn btn-warning"
-                                                    href="{{ url('dashboard/jatah/' . $data->id . '/edit') }}"
-                                                    style="padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px;
-                                                margin-right: 5px"><i
-                                                        class="far fa-edit"></i></a>
-                                            </div>
-                                        </td>
+                                
+                                        <th scope="col">Tahun</th>
+                                        <th scope="col">Jatah</th>
+                                        <th scope="col">Aksi</th>
                                     </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($jatahCutis as $data)
+                                        <tr>
+                                         
+                                            <td>{{ $data->tahun }}</td>
+                                            <td>{{ $data->jatah }}</td>
+                                            <td>
+                                                <div class="d-flex gap-4">
+                                                    <a class="btn btn-warning btn-sm"
+                                                        href="{{ url('dashboard/jatah/' . $data->id . '/edit') }}">
+                                                        <i class="far fa-edit"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
-                            @endforeach
-                        </table>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

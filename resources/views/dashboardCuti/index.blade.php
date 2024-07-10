@@ -8,15 +8,11 @@
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-12 d-flex no-block align-items-center">
-                    <h4 class="page-title">Dashboard</h4>
+                    <h4 clas = "teks align center" > Selamat Datang di Sistem Informasi Pengajuan Cuti</h4>
                     <div class="ml-auto text-right">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Library</li>
-                            </ol>
-                        </nav>
+                        <h4 class="page-title"> Dashboard</h4> <br>
                     </div>
+                   
                 </div>
             </div>
         </div>
@@ -30,7 +26,7 @@
             <!-- ============================================================== -->
             <!-- Sales Cards  -->
             <!-- ============================================================== -->
-            <div class="row">
+            {{-- <div class="row">
                 <!-- Column -->
                 <div class="col-md-6 col-lg-2 col-xlg-3">
                     <div class="card card-hover">
@@ -40,8 +36,8 @@
                         </div>
                     </div>
                 </div>
-                <!-- Column -->
-                <div class="col-md-6 col-lg-4 col-xlg-3">
+                <!-- Column --> --}}
+                {{-- <div class="col-md-6 col-lg-4 col-xlg-3">
                     <div class="card card-hover">
                         <div class="box bg-success text-center">
                             <h1 class="font-light text-white"><i class="mdi mdi-chart-areaspline"></i></h1>
@@ -75,7 +71,7 @@
                             <h6 class="text-white">Full Width</h6>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!-- Column -->
                 <!-- Column -->
                 <!-- Column -->
@@ -98,7 +94,7 @@
         <!-- footer -->
         <!-- ============================================================== -->
         <footer class="footer text-center">
-            All Rights Reserved by Matrix-admin. Designed and Developed by <a href="https://wrappixel.com">WrapPixel</a>.
+            Partnership by Matrix-admin. Developed by <a href="">Andre</a>.
         </footer>
         <!-- ============================================================== -->
         <!-- End footer -->

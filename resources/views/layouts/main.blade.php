@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/pavicon.png') }}">
     <title> SI Pengajuan Cuti</title>
     <!-- Custom CSS -->
     <!-- <link href="assets/libs/flot/css/float-chart.css" rel="stylesheet"> -->
@@ -58,19 +58,27 @@
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <a class="navbar-brand" href="index.php">
-                        <!-- Logo icon -->
-                        <b class="logo-icon p-l-10">
+                    <a class="navbar-brand" @if (Auth::guard('admin')->check()) {{ 'href=/' }}
+                    
+                        @elseif(Auth::guard('atasan')->check())
+                        
+                        {{ 'href=/dashboardAtasan' }} 
+                        @else 
+                        {{ 'href=/dashboardPegawai' }} @endif>
+                      
+                        <b class="logo-icon p-l-10"> 
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="{{ asset('assets/images/logo-icon.png') }}" alt="homepage" class="light-logo" />
+                            <img src="{{ asset('assets/images/logo_icon.png') }}" alt="homepage" class="light-logo" width="50" 
+                            height="50" />
 
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
                         <span class="logo-text">
                             <!-- dark Logo text -->
-                            <img src="{{ asset('assets/images/logo-text.png') }}" alt="homepage" class="light-logo" />
+                            <img src="{{ asset('assets/images/logo_text.png') }}" alt="homepage" class="light-logo" width="100" 
+                            height="40" />
 
                         </span>
                         <!-- Logo icon -->
@@ -127,10 +135,10 @@
                                         {{ Auth::guard('pegawai')->user()->nama }}</a>
                                 @endif
 
-                                @if (Auth::guard('user')->check())
+                                @if (Auth::guard('admin')->check())
                                     <a class="dropdown-item" href="javascript:void(0)"><i
                                             class="ti-user m-r-5 m-l-5"></i>
-                                        {{ Auth::guard('user')->user()->name }}</a>
+                                        {{ Auth::guard('admin')->user()->name }}</a>
                                 @endif
 
                                 @if (Auth::guard('atasan')->check())
@@ -139,9 +147,9 @@
                                         {{ Auth::guard('atasan')->user()->nama }}</a>
                                 @endif
 
-
-                                <a href="{{ url('/logoutt') }}" class="dropdown-item"><i
-                                        class="fa fa-power-off m-r-5 m-l-5"></i>Logout</a>
+                                <a href="{{ url('/logoutt') }}" class="dropdown-item btn btn-danger" 
+                               >
+                                <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
 
                                 {{-- <form action="{{ url('logout') }}" method="POST">
                                     @csrf
@@ -149,11 +157,11 @@
                                             class="fa fa-power-off m-r-5 m-l-5"></i>Logout</button>
                                 </form> --}}
 
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <div class="p-l-30 p-10"><a href="javascript:void(0)"
-                                        class="btn btn-sm btn-success btn-rounded">View Profile</a></div>
-                            </div>
+                                {{-- </a> --}}
+                                {{-- <div class="dropdown-divider"></div> --}}
+                                {{-- <div class="p-l-30 p-10"><a href="javascript:void(0)" --}}
+                                        {{-- class="btn btn-sm btn-success btn-rounded">View Profile</a></div> --}}
+                            {{-- </div> --}}
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -194,26 +202,26 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('dist/js/jquery.ui.touch-punch-improved.js') }}"></script>
-    <script src="{{ asset('dist/js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('dist/js/jquery-ui.min.js') }}"></script> --}}
 
-    <!-- Bootstrap tether Core JavaScript -->
+   <!-- Bootstrap tether Core JavaScript -->
     <script src="{{ asset('assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
     <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
     <script src="{{ asset('assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/extra-libs/sparkline/sparkline.js') }}"></script>
+    <script src="{{ asset('assets/extra-libs/sparkline/sparkline.js') }}"></script> 
     <!--Wave Effects -->
     <script src="{{ asset('dist/js/waves.js') }}"></script>
-    <!--Menu sidebar -->
-    <script src="{{ asset('dist/js/sidebarmenu.js') }}"></script>
+    <!--Menu sidebar --> 
+     <script src="{{ asset('dist/js/sidebarmenu.js') }}"></script> 
     <!--Custom JavaScript -->
     <script src="{{ asset('dist/js/custom.min.js') }}"></script>
     <!-- this page js -->
     <script src="{{ asset('assets/libs/moment/min/moment.min.js') }}"></script>
     <script src="{{ asset('assets/libs/fullcalendar/dist/fullcalendar.min.js') }}"></script>
-    <script src="{{ asset('dist/js/pages/calendar/cal-init.js') }}"></script>
+    <script src="{{ asset('dist/js/pages/calendar/cal-init.js') }}"></script> 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">

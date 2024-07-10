@@ -12,7 +12,10 @@ class Surat extends Model
     protected $fillable = [
         'no_surat',
         'tanggal_disahkan',
-        'persetujuan_kedua_id'
+        'persetujuan_kedua_id',
+        'nama',
+        'penanda_tangan',
+        'nip'
     ];
 
     public function persetujuanKedua()

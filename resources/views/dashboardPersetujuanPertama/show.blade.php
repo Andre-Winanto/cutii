@@ -160,7 +160,11 @@
                                         Status
                                     </td>
                                     <td>
-                                        <span class="badge bg-success">{{ $persetujuanPertama->status }}</span>
+                                        @if($persetujuanPertama->status == 'setuju')
+                                            <span class="badge bg-success">{{ $persetujuanPertama->status }}</span>
+                                        @elseif($persetujuanPertama->status == 'tolak')
+                                            <span class="badge bg-danger">{{ $persetujuanPertama->status }}</span>
+                                        @endif
                                     </td>
                                 </tr>
                                 <tr>
@@ -171,6 +175,27 @@
                                         {{ $persetujuanPertama->keterangan }}
                                     </td>
                                 </tr>
+
+                                {{-- <tr>
+                                    <td>
+                                        Status Persetujuan Kedua
+                                    </td>
+                                    <td>
+                                        @if ($persetujuanKedua->status == 'setuju')
+                                            <span class="badge bg-success">{{ $persetujuanKedua->status }}</span>
+                                        @else
+                                            <span class="badge bg-danger">{{ $persetujuanKedua->status }}</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Keterangan Persetujuan Kedua
+                                    </td>
+                                    <td>
+                                        {{ $persetujuanKedua->keterangan }}
+                                    </td>
+                                </tr> --}}
                                 @if (!is_null($persetujuanPertama->pengajuanCuti->file))
                                     <tr>
                                         <td>
@@ -192,4 +217,6 @@
             </div>
         </div>
     </div>
+
 @endsection
+

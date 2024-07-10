@@ -1,107 +1,75 @@
 @extends('layouts.main')
 
 @section('container')
+    
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Include Font Awesome -->
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+     --}}
+</head>
+<body>
     <div class="page-wrapper">
-        <!-- ============================================================== -->
-        <!-- Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-12 d-flex no-block align-items-center">
                     <h4 class="page-title">Dashboard</h4>
-                    <div class="ml-auto text-right">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Library</li>
-                            </ol>
-                        </nav>
-                    </div>
                 </div>
             </div>
         </div>
-        <!-- ============================================================== -->
-        <!-- End Bread crumb and right sidebar toggle -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Container fluid  -->
-        <!-- ============================================================== -->
         <div class="container-fluid">
-            <!-- ============================================================== -->
-            <!-- Sales Cards  -->
-            <!-- ============================================================== -->
             <div class="row">
-                <!-- Column -->
-                <div class="col-md-6 col-lg-2 col-xlg-3">
+                <div class="col-md-6 col-lg-3 col-xlg-3">
                     <div class="card card-hover">
                         <div class="box bg-cyan text-center">
-                            <h1 class="font-light text-white"><i class="mdi mdi-view-dashboard"></i></h1>
-                            <h6 class="text-white">Dashboard</h6>
+                            <h1 class="font-light text-white">
+                                <i class="fas fa-user"></i> {{ $jumlahPegawai }}
+                            </h1>
+                            <h6 class="text-white">Jumlah Pegawai</h6>
                         </div>
+
                     </div>
                 </div>
-                <!-- Column -->
-                <div class="col-md-6 col-lg-4 col-xlg-3">
+                <div class="col-md-6 col-lg-3 col-xlg-3">
                     <div class="card card-hover">
                         <div class="box bg-success text-center">
-                            <h1 class="font-light text-white"><i class="mdi mdi-chart-areaspline"></i></h1>
-                            <h6 class="text-white">Charts</h6>
+                            <h1 class="font-light text-white">
+                                <i class="fas fa-user-tie"></i> {{ $jumlahAtasan }}
+                            </h1>
+                            <h6 class="text-white">Jumlah Atasan</h6>
                         </div>
                     </div>
                 </div>
-                <!-- Column -->
-                <div class="col-md-6 col-lg-2 col-xlg-3">
+                <div class="col-md-6 col-lg-3 col-xlg-3">
                     <div class="card card-hover">
                         <div class="box bg-warning text-center">
-                            <h1 class="font-light text-white"><i class="mdi mdi-collage"></i></h1>
-                            <h6 class="text-white">Widgets</h6>
+                            <h1 class="font-light text-white">
+                                <i class="fas fa-envelope"></i> {{ $jumlahSurat }}
+                            </h1>
+                            <h6 class="text-white">Jumlah Surat</h6>
                         </div>
                     </div>
                 </div>
-                <!-- Column -->
-                <div class="col-md-6 col-lg-2 col-xlg-3">
+                <div class="col-md-6 col-lg-3 col-xlg-3">
                     <div class="card card-hover">
                         <div class="box bg-danger text-center">
-                            <h1 class="font-light text-white"><i class="mdi mdi-border-outside"></i></h1>
-                            <h6 class="text-white">Tables</h6>
+                            <h1 class="font-light text-white">
+                                <i class="fas fa-file-alt"></i> {{ $jumlahPengajuan }}
+                            </h1>
+                            <h6 class="text-white">Jumlah Pengajuan</h6>
                         </div>
                     </div>
                 </div>
-                <!-- Column -->
-                <div class="col-md-6 col-lg-2 col-xlg-3">
-                    <div class="card card-hover">
-                        <div class="box bg-info text-center">
-                            <h1 class="font-light text-white"><i class="mdi mdi-arrow-all"></i></h1>
-                            <h6 class="text-white">Full Width</h6>
-                        </div>
-                    </div>
-                </div>
-                <!-- Column -->
-                <!-- Column -->
-                <!-- Column -->
             </div>
-
-            <!-- ============================================================== -->
-            <!-- Sales chart -->
-            <!-- ============================================================== -->
-
-            <!-- ============================================================== -->
-            <!-- Recent comment and chats -->
-            <!-- ============================================================== -->
         </div>
-        <!-- ============================================================== -->
-
-
-        <!-- End Container fluid  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- footer -->
-        <!-- ============================================================== -->
         <footer class="footer text-center">
-            All Rights Reserved by Matrix-admin. Designed and Developed by <a href="https://wrappixel.com">WrapPixel</a>.
+            Development by <a href="">Andre</a>.
         </footer>
-        <!-- ============================================================== -->
-        <!-- End footer -->
-        <!-- ============================================================== -->
     </div>
+</body>
+</html>
 @endsection

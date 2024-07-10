@@ -32,7 +32,11 @@ class Atasan extends Authenticatable
         'password'
     ];
 
-
+    public function kelompok()
+    {
+        return $this->belongsTo(Kelompok::class, 'nama_kelompok', 'nama_kelompok');
+    }
+    
     /**
      * The attributes that should be hidden for serialization.
      *

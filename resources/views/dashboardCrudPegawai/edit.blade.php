@@ -163,7 +163,7 @@
 
                                 <div class="form-group row">
                                     <label for="file"
-                                        class="col-sm-3 text-end control-label col-form-label">File</label>
+                                        class="col-sm-3 text-end control-label col-form-label">TTD (png)</label>
                                     <div class="col-sm-9">
                                         <input type="file" class="form-control @error('file') is-invalid @enderror"
                                             name="ttd" value="{{ old('file') }}" id="file"
@@ -178,10 +178,10 @@
 
                                 <div class="border-top">
                                     <div class="card-body">
-                                        <a class="btn btn-primary" style="margin-right: 10px"
-                                            href="{{ url('dashboard/datapegawai') }}">Kembali</a>
-                                        <button type="submit" class="btn btn-primary">
-                                            Simpan
+                                        <a class="btn btn-danger" style="margin-right: 10px"
+                                            href="{{ url('dashboard/datapegawai') }}">Batalkan</a>
+                                        <button type="submit" class="btn btn-success">
+                                            Simpan Perubahan
                                         </button>
                                     </div>
                                 </div>

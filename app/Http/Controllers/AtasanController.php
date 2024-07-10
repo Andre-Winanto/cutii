@@ -42,13 +42,13 @@ class AtasanController extends Controller
         ]);
 
         $validated = $request->validate([
-            'NIP' => 'required|max:18|min:18|unique:pegawais|unique:atasans',
+            'NIP' => 'required|max:40|min:2|unique:pegawais|unique:atasans',
             'nama' => 'required|max:255',
             'jabatan' => 'required',
             'golongan' => 'required',
             'masa_kerja' => 'required|max:3',
             'email' => 'required|max:20|unique:pegawais|unique:atasans',
-            'password' => 'required|max:9',
+            'password' => 'required|max:20',
             'nama_kelompok' => 'required|unique:atasans',
             'ttd' => 'required|max:5000'
         ]);
@@ -105,16 +105,16 @@ class AtasanController extends Controller
             'jabatan' => 'required|max:20',
             'masa_kerja' => 'required|max:3',
             'golongan' => 'required|max:50',
-            'password' => 'required|max:9',
+            'password' => 'required|max:20',
             'ttd' => 'max:5000'
         ];
 
         if ($request->NIP != $dataatasan->NIP) {
-            $rules['NIP'] = 'required|max:18|min:18|unique:atasans';
+            $rules['NIP'] = 'required|max:40|min:2|unique:atasans';
         }
 
         if ($request->email != $dataatasan->email) {
-            $rules['email'] = 'required|max:20|unique:atasans';
+            $rules['email'] = 'required|max:100|unique:atasans';
         }
 
         if ($request->nama_kelompok != $dataatasan->nama_kelompok) {
@@ -158,6 +158,7 @@ class AtasanController extends Controller
         File::delete('file/' . $dataatasan->ttd);
 
         Atasan::destroy($dataatasan->id);
+        Kelompok::destroy($dataatasan->kelompok->id);
 
         return redirect('dashboard/dataatasan')->with('success', 'Data Atasan berhasil dihapus!');
     }

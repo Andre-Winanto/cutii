@@ -16,6 +16,9 @@ return new class extends Migration
             $table->timestamps();
             $table->string('no_surat')->nullable();
             $table->date('tanggal_disahkan')->nullable();
+            $table->string('nama')->nullable();
+            $table->string('penanda_tangan')->nullable();
+            $table->string('nip')->nullable();
 
             $table->foreignId('persetujuan_kedua_id')
                 ->constrained()->onDelete('cascade')

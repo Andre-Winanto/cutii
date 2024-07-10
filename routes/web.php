@@ -8,8 +8,13 @@ use App\Http\Controllers\JatahCutiController;
 use App\Http\Controllers\PersetujuanKeduaController;
 use App\Http\Controllers\PersetujuanPertamaController;
 use App\Http\Controllers\SuratController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Pegawai;
+use App\Models\Atasan;
+use App\Models\Surat;
+use App\Models\PengajuanCuti;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,17 +27,34 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+Route::get('/dashboard', [DashboardController::class, 'index']);
+
 Route::get('/', function () {
-    return view('welcome');
-})->middleware('auth:user');
+    return view('welcome', [
+        'jumlahPegawai'=> Pegawai::count(),
+        'jumlahAtasan'=> Atasan::count(),
+        'jumlahSurat'=> Surat::count(),
+        'jumlahPengajuan'=> PengajuanCuti::count(),
+    ]);
+})->middleware('auth:admin');
+
+// Dashboard Atasan : 
+Route::get('dashboardAtasan', function () {
+    return view('dashboardAtasan');
+});
+
+// Dashboard Pegawai : 
+Route::get('dashboardPegawai', function () {
+    return view('dashboardPegawai'); 
+});
 
 Route::get('/login', [LoginController::class, 'login'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 
-Route::resource('dashboard/datapegawai', PegawaiController::class)->middleware('auth:user');
-Route::resource('dashboard/dataatasan', AtasanController::class)->middleware('auth:user');
+Route::resource('dashboard/datapegawai', PegawaiController::class)->middleware('auth:admin');
+Route::resource('dashboard/dataatasan', AtasanController::class)->middleware('auth:admin');
 
-Route::middleware('auth:user')->group(function () {
+Route::middleware('auth:admin')->group(function () {
     Route::get('dashboard/surat', [SuratController::class, 'index']);
     Route::get('dashboard/surat/{data}/show', [SuratController::class, 'show']);
     Route::post('dashboard/surat', [SuratController::class, 'store']);
@@ -50,6 +72,7 @@ Route::middleware('auth:user')->group(function () {
 
 Route::middleware('auth:pegawai')->group(function () {
     Route::resource('dashboard/pengajuancuti', PengajuanCutiController::class);
+    Route::resource('dashboard/riwayatcuti', PengajuanCutiController::class);
     Route::get('dashboard/cetakcuti/{data}', [PengajuanCutiController::class, 'cetakcuti']);
     Route::get('dashboard/cetaksurat/{data}', [PengajuanCutiController::class, 'cetaksurat']);
 });
@@ -60,6 +83,8 @@ Route::middleware('auth:atasan')->group(function () {
     Route::get('dashboard/persetujuanpertama', [PersetujuanPertamaController::class, 'index']);
     Route::get('dashboard/persetujuanpertama/{data}/show', [PersetujuanPertamaController::class, 'show']);
     Route::post('dahsboard/persetujuanpertama/{data}', [PersetujuanPertamaController::class, 'persetujuan']);
+
+    
 });
 
 Route::middleware('auth:atasan')->group(function () {
@@ -69,15 +94,15 @@ Route::middleware('auth:atasan')->group(function () {
 });
 
 Route::get('dashboard/persetujuan', function () {
-    return view('dashboardCuti.index');
+    return view('dashboardAtasan');
 });
 
 Route::get('dashboard/cuti', function () {
-    return view('dashboardCuti.index');
+    return view('dashboardpegawai');
 });
 
 Route::get('/test', function () {
-    return Auth::guard('user')->user()->name;
+    return Auth::guard('admin')->user()->name;
 });
 
 Route::get('/test2', function () {
@@ -94,7 +119,8 @@ Route::get('/test4', function () {
 
 Route::get('/logoutt', function () {
     Auth::guard('pegawai')->logout();
-    Auth::guard('user')->logout();
+    Auth::guard('admin')->logout();
     Auth::guard('atasan')->logout();
     return redirect('/login');
 });
+
